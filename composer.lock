@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c6026b96e6fa11a641b51a6ba976f5e",
-    "content-hash": "5bd58fd976f1ee3e9611bc37c006ec46",
+    "hash": "83390f06987d1b807aa7f49fa8ed5396",
+    "content-hash": "6a2d70427be8b6c0658e3cae0594b0f2",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -840,6 +840,66 @@
                 "random"
             ],
             "time": "2015-12-10 14:48:13"
+        },
+        {
+            "name": "prettus/l5-repository",
+            "version": "2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andersao/l5-repository.git",
+                "reference": "d5b49ff57775d8d23cf11fb7d49887e273375580"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/d5b49ff57775d8d23cf11fb7d49887e273375580",
+                "reference": "d5b49ff57775d8d23cf11fb7d49887e273375580",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5.0|~5.1|~5.2",
+                "illuminate/console": "~5.0|~5.1|~5.2",
+                "illuminate/database": "~5.0|~5.1|~5.2",
+                "illuminate/filesystem": "~5.0|~5.1|~5.2",
+                "illuminate/http": "~5.0|~5.1|~5.2",
+                "illuminate/pagination": "~5.0|~5.1|~5.2",
+                "illuminate/support": "~5.0|~5.1|~5.2"
+            },
+            "suggest": {
+                "league/fractal": "Required to use the Fractal Presenter (0.12.*).",
+                "prettus/laravel-validation": "Required to use the Repository Validators (1.1.*)",
+                "robclancy/presenter": "Required to use the Presenter Model (1.3.*)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Prettus\\Repository\\": "src/Prettus/Repository/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anderson Andrade",
+                    "email": "contato@andersonandra.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel 5 - Repositories to  the database layer",
+            "keywords": [
+                "cache",
+                "eloquent",
+                "laravel",
+                "model",
+                "repository"
+            ],
+            "time": "2015-12-24 00:59:39"
         },
         {
             "name": "psr/log",
