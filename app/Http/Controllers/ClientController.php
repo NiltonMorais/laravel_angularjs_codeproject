@@ -53,7 +53,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         try{
-            return $this->service->create($request->all());
+            return $this->repository->create($request->all());
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao cadastrar o cliente.');
@@ -90,7 +90,7 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            return $this->service->update($request->all(), $id);
+            return $this->repository->update($request->all(), $id);
         }
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Cliente não encontrado.');
