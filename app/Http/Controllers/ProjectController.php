@@ -77,7 +77,7 @@ class ProjectController extends Controller
     {
         try
         {
-            if(!$this->checkProjectOwner($id)){
+            if(!$this->checkProjectPermissions($id)){
                 return $this->erroMsgm("O usuário não tem acesso a esse projeto");
             }
             return $this->repository->with(['owner','client'])->find($id);
@@ -155,6 +155,22 @@ class ProjectController extends Controller
         $userId = \Authorizer::getResourceOwnerId();
 
         return $this->repository->isOwner($projectId,$userId);
+    }
+
+    private function checkProjectMember($projectId)
+    {
+        $userId = \Authorizer::getResourceOwnerId();
+
+        return $this->repository->hasMember($projectId,$userId);
+    }
+
+    private function checkProjectPermissions($projectId)
+    {
+        if($this->checkProjectOwner($projectId) || $this->checkProjectMember($projectId)){
+            return true;
+        }
+
+        return false;
     }
 
     private function erroMsgm($mensagem)
