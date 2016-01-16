@@ -2,8 +2,11 @@
 
 namespace CodeProject\Http\Controllers;
 
+use CodeProject\Entities\Project;
 use CodeProject\Repositories\ClientRepository;
 use CodeProject\Services\ClientService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use CodeProject\Http\Requests;
@@ -34,7 +37,11 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return $this->repository->all();
+        try{
+            return $this->repository->all();
+        }catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao listar os clientes.');
+        }
     }
 
     /**
@@ -45,7 +52,12 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->service->create($request->all());
+        try{
+            return $this->service->create($request->all());
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao cadastrar o cliente.');
+        }
     }
 
     /**
@@ -56,7 +68,15 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
+        try{
+            $this->repository->find($id);
+        }
+        catch(ModelNotFoundException $e){
+            return $this->erroMsgm('Cliente não encontrado.');
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao exibir o cliente.');
+        }
     }
 
 
@@ -69,7 +89,15 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($request->all(), $id);
+        try{
+            return $this->service->update($request->all(), $id);
+        }
+        catch(ModelNotFoundException $e){
+            return $this->erroMsgm('Cliente não encontrado.');
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao atualizar o cliente.');
+        }
     }
 
     /**
@@ -80,6 +108,25 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->find($id)->delete();
+        try{
+            $this->repository->find($id)->delete();
+        }
+        catch(QueryException $e){
+            return $this->erroMsgm('Cliente não pode ser apagado pois existe um ou mais projetos vinculados a ele.');
+        }
+        catch(ModelNotFoundException $e){
+            return $this->erroMsgm('Cliente não encontrado.');
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao excluir o cliente.');
+        }
+    }
+
+    private function erroMsgm($mensagem)
+    {
+        return [
+            'error' => true,
+            'message' => $mensagem,
+        ];
     }
 }

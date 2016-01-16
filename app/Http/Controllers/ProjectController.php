@@ -5,6 +5,8 @@ namespace CodeProject\Http\Controllers;
 use CodeProject\Http\Requests;
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Services\ProjectService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
@@ -31,10 +33,15 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return $this->repository->with(['owner','client'])->all();
-    }
+        public function index()
+        {
+            try{
+                return $this->repository->with(['owner','client'])->all();
+            }
+            catch(\Exception $e){
+                return $this->erroMsgm('Ocorreu um erro ao listar os projetos.');
+            }
+        }
 
     /**
      * Store a newly created resource in storage.
@@ -44,7 +51,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->service->create($request->all());
+        try{
+            return $this->service->create($request->all());
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao cadastrar o projeto.');
+        }
     }
 
     /**
@@ -55,7 +67,15 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
+        try{
+            return $this->repository->with(['owner','client'])->find($id);
+        }
+        catch(ModelNotFoundException $e){
+            return $this->erroMsgm('Projeto não encontrado.');
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao exibir o projeto.');
+        }
     }
 
 
@@ -68,7 +88,15 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($request->all(), $id);
+        try{
+            return $this->service->update($request->all(), $id);
+        }
+        catch(ModelNotFoundException $e){
+            return $this->erroMsgm('Projeto não encontrado.');
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao atualizar o projeto.');
+        }
     }
 
     /**
@@ -79,6 +107,25 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->find($id)->delete();
+        try{
+            $this->repository->find($id)->delete();
+        }
+        catch(QueryException $e){
+            return $this->erroMsgm('Projeto não pode ser apagado pois existe um ou mais clientes vinculados a ele.');
+        }
+        catch(ModelNotFoundException $e){
+            return $this->erroMsgm('Projeto não encontrado.');
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao excluir o projeto.');
+        }
+    }
+
+    private function erroMsgm($mensagem)
+    {
+        return [
+            'error' => true,
+            'message' => $mensagem,
+        ];
     }
 }
