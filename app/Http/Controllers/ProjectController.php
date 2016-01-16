@@ -8,6 +8,7 @@ use CodeProject\Services\ProjectService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use LucaDegasperi\OAuth2Server\Exceptions\NoActiveAccessTokenException;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class ProjectController extends Controller
@@ -35,8 +36,12 @@ class ProjectController extends Controller
      */
         public function index()
         {
-            try{
-                return $this->repository->with(['owner','client'])->all();
+            try
+            {
+                return $this->repository->with(['owner','client'])->findWhere(['owner_id'=> \Authorizer::getResourceOwnerId()]);
+            }
+            catch(NoActiveAccessTokenException $e){
+                return $this->erroMsgm('Usuário não está logado.');
             }
             catch(\Exception $e){
                 return $this->erroMsgm('Ocorreu um erro ao listar os projetos.');
@@ -54,6 +59,9 @@ class ProjectController extends Controller
         try{
             return $this->repository->create($request->all());
         }
+        catch(NoActiveAccessTokenException $e){
+            return $this->erroMsgm('Usuário não está logado.');
+        }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao cadastrar o projeto.');
         }
@@ -67,11 +75,18 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        try{
+        try
+        {
+            if(!$this->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
             return $this->repository->with(['owner','client'])->find($id);
         }
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Projeto não encontrado.');
+        }
+        catch(NoActiveAccessTokenException $e){
+            return $this->erroMsgm('Usuário não está logado.');
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao exibir o projeto.');
@@ -88,11 +103,18 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
+        try
+        {
+            if(!$this->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
             return $this->repository->update($request->all(), $id);
         }
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Projeto não encontrado.');
+        }
+        catch(NoActiveAccessTokenException $e){
+            return $this->erroMsgm('Usuário não está logado.');
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao atualizar o projeto.');
@@ -107,7 +129,11 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        try{
+        try
+        {
+            if(!$this->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
             $this->repository->find($id)->delete();
         }
         catch(QueryException $e){
@@ -116,9 +142,19 @@ class ProjectController extends Controller
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Projeto não encontrado.');
         }
+        catch(NoActiveAccessTokenException $e){
+            return $this->erroMsgm('Usuário não está logado.');
+        }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao excluir o projeto.');
         }
+    }
+
+    private function checkProjectOwner($projectId)
+    {
+        $userId = \Authorizer::getResourceOwnerId();
+
+        return $this->repository->isOwner($projectId,$userId);
     }
 
     private function erroMsgm($mensagem)

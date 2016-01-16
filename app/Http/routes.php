@@ -12,7 +12,7 @@ Route::post('oauth/access_token', function(){
 });
 
 
-//Route::group(['middleware'=>'oauth'], function(){
+Route::group(['middleware'=>'oauth'], function(){
 
     Route::resource('client', 'ClientController', ['except'=>['create','edit']]);
 
@@ -28,6 +28,6 @@ Route::post('oauth/access_token', function(){
         Route::delete('{id}/note/{noteId}', 'ProjectNoteController@destroy');
     });
 
-//});
+});
 
 
