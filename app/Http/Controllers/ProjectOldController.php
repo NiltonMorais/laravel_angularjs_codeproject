@@ -1,35 +1,26 @@
 <?php
-
 namespace CodeProject\Http\Controllers;
-
-use CodeProject\Entities\Project;
-use CodeProject\Repositories\ClientRepository;
-use CodeProject\Services\ClientService;
+use CodeProject\Http\Requests;
+use CodeProject\Repositories\ProjectRepository;
+use CodeProject\Services\ProjectService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
-use CodeProject\Http\Requests;
-use CodeProject\Http\Controllers\Controller;
-
-class ClientController extends Controller
+class ProjectOldController extends Controller
 {
     /**
-     * @var ClientRepository
+     * @var ProjectRepository
      */
     private $repository;
-
     /**
-     * @var ClientService
+     * @var ProjectService
      */
     private $service;
-
-    public function __construct(ClientRepository $repository, ClientService $service)
+    public function __construct(ProjectRepository $repository, ProjectService $service)
     {
         $this->repository = $repository;
         $this->service = $service;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -38,12 +29,12 @@ class ClientController extends Controller
     public function index()
     {
         try{
-            return $this->repository->all();
-        }catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao listar os clientes.');
+            return $this->repository->with(['owner','client'])->all();
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao listar os projetos.');
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -56,10 +47,9 @@ class ClientController extends Controller
             return $this->repository->create($request->all());
         }
         catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao cadastrar o cliente.');
+            return $this->erroMsgm('Ocorreu um erro ao cadastrar o projeto.');
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -69,17 +59,15 @@ class ClientController extends Controller
     public function show($id)
     {
         try{
-            return $this->repository->find($id);
+            return $this->repository->with(['owner','client'])->find($id);
         }
         catch(ModelNotFoundException $e){
-            return $this->erroMsgm('Cliente não encontrado.');
+            return $this->erroMsgm('Projeto não encontrado.');
         }
         catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao exibir o cliente.');
+            return $this->erroMsgm('Ocorreu um erro ao exibir o projeto.');
         }
     }
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -93,13 +81,12 @@ class ClientController extends Controller
             return $this->repository->update($request->all(), $id);
         }
         catch(ModelNotFoundException $e){
-            return $this->erroMsgm('Cliente não encontrado.');
+            return $this->erroMsgm('Projeto não encontrado.');
         }
         catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao atualizar o cliente.');
+            return $this->erroMsgm('Ocorreu um erro ao atualizar o projeto.');
         }
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -110,22 +97,17 @@ class ClientController extends Controller
     {
         try{
             $this->repository->find($id)->delete();
-            return [
-                'success' => true,
-                'message' => "Cliente deletado com sucesso!"
-            ];
         }
         catch(QueryException $e){
-            return $this->erroMsgm('Cliente não pode ser apagado pois existe um ou mais projetos vinculados a ele.');
+            return $this->erroMsgm('Projeto não pode ser apagado pois existe um ou mais clientes vinculados a ele.');
         }
         catch(ModelNotFoundException $e){
-            return $this->erroMsgm('Cliente não encontrado.');
+            return $this->erroMsgm('Projeto não encontrado.');
         }
         catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao excluir o cliente.');
+            return $this->erroMsgm('Ocorreu um erro ao excluir o projeto.');
         }
     }
-
     private function erroMsgm($mensagem)
     {
         return [
