@@ -11,4 +11,10 @@ class ClientRepositoryEloquent extends BaseRepository implements ClientRepositor
         return Client::class;
     }
 
+
+    public function validator()
+    {
+        return \CodeProject\Validators\ClientValidator::class;
+    }
+
 }

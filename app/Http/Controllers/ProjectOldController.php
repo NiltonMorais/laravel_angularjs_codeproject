@@ -6,6 +6,8 @@ use CodeProject\Services\ProjectService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Prettus\Validator\Exceptions\ValidatorException;
+
 class ProjectOldController extends Controller
 {
     /**
@@ -46,6 +48,14 @@ class ProjectOldController extends Controller
         try{
             return $this->repository->create($request->all());
         }
+        catch(ValidatorException $e){
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao cadastrar o projeto, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
+        }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao cadastrar o projeto.');
         }
@@ -82,6 +92,14 @@ class ProjectOldController extends Controller
         }
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Projeto não encontrado.');
+        }
+        catch(ValidatorException $e){
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao atualizar o projeto, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao atualizar o projeto.');

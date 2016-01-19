@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Exceptions\NoActiveAccessTokenException;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class ProjectController extends Controller
 {
@@ -61,6 +62,14 @@ class ProjectController extends Controller
         }
         catch(NoActiveAccessTokenException $e){
             return $this->erroMsgm('Usuário não está logado.');
+        }
+        catch(ValidatorException $e){
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao cadastrar o projeto, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao cadastrar o projeto.');
@@ -115,6 +124,14 @@ class ProjectController extends Controller
         }
         catch(NoActiveAccessTokenException $e){
             return $this->erroMsgm('Usuário não está logado.');
+        }
+        catch(ValidatorException $e){
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao atualizar o projeto, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao atualizar o projeto.');

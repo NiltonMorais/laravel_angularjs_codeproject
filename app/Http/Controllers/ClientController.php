@@ -2,7 +2,6 @@
 
 namespace CodeProject\Http\Controllers;
 
-use CodeProject\Entities\Project;
 use CodeProject\Repositories\ClientRepository;
 use CodeProject\Services\ClientService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -10,7 +9,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use CodeProject\Http\Requests;
-use CodeProject\Http\Controllers\Controller;
+
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class ClientController extends Controller
 {
@@ -47,13 +47,21 @@ class ClientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         try{
             return $this->repository->create($request->all());
+        }
+        catch(ValidatorException $e){
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao cadastrar o cliente, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao cadastrar o cliente.');
@@ -94,6 +102,14 @@ class ClientController extends Controller
         }
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Cliente não encontrado.');
+        }
+        catch(ValidatorException $e){
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao atualizar o cliente, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
         }
         catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao atualizar o cliente.');
