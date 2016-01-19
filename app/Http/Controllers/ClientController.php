@@ -69,7 +69,7 @@ class ClientController extends Controller
     public function show($id)
     {
         try{
-            $this->repository->find($id);
+            return $this->repository->find($id);
         }
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Cliente não encontrado.');
