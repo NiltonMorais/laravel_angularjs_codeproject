@@ -18,6 +18,14 @@ Route::post('oauth/access_token', function(){
 
    // Route::group(['middleware'=>'CheckProjectOwner'], function(){
         Route::resource('project', 'ProjectOldController', ['except'=>['create','edit']]);
+
+        Route::get('project/{id}/members', 'ProjectOldController@members');
+        Route::get('project/{id}/members/{member_id}/add', 'ProjectOldController@addMember');
+        Route::delete('project/{id}/members/{member_id}/remove', 'ProjectOldController@removeMember');
+
+        Route::get('project/{id}/tasks', 'ProjectOldController@tasks');
+        Route::post('project/{id}/tasks/add', 'ProjectOldController@addTask');
+        Route::delete('project/{id}/tasks/{task_id}/remove', 'ProjectOldController@removeTask');
    // });
 
     Route::group(['prefix'=>'project'], function(){
