@@ -12,20 +12,20 @@ Route::post('oauth/access_token', function(){
 });
 
 
-//Route::group(['middleware'=>'oauth'], function(){
+Route::group(['middleware'=>'oauth'], function(){
 
     Route::resource('client', 'ClientController', ['except'=>['create','edit']]);
 
-   // Route::group(['middleware'=>'CheckProjectOwner'], function(){
-        Route::resource('project', 'ProjectOldController', ['except'=>['create','edit']]);
+    //Route::group(['middleware'=>'CheckProjectOwner'], function(){
+        Route::resource('project', 'ProjectController', ['except'=>['create','edit']]);
 
-        Route::get('project/{id}/members', 'ProjectOldController@members');
-        Route::get('project/{id}/members/{member_id}/add', 'ProjectOldController@addMember');
-        Route::delete('project/{id}/members/{member_id}/remove', 'ProjectOldController@removeMember');
+        Route::get('project/{id}/members', 'ProjectController@members');
+        Route::get('project/{id}/members/{member_id}/add', 'ProjectController@addMember');
+        Route::delete('project/{id}/members/{member_id}/remove', 'ProjectController@removeMember');
 
-        Route::get('project/{id}/tasks', 'ProjectOldController@tasks');
-        Route::post('project/{id}/tasks/add', 'ProjectOldController@addTask');
-        Route::delete('project/{id}/tasks/{task_id}/remove', 'ProjectOldController@removeTask');
+        Route::get('project/{id}/tasks', 'ProjectController@tasks');
+        Route::post('project/{id}/tasks/add', 'ProjectController@addTask');
+        Route::delete('project/{id}/tasks/{task_id}/remove', 'ProjectController@removeTask');
    // });
 
     Route::group(['prefix'=>'project'], function(){
@@ -39,6 +39,6 @@ Route::post('oauth/access_token', function(){
         Route::post('{id}/file/', 'ProjectFileController@store');
     });
 
-//});
+});
 
 

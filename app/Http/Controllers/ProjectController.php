@@ -4,6 +4,7 @@ namespace CodeProject\Http\Controllers;
 
 use CodeProject\Http\Requests;
 use CodeProject\Repositories\ProjectRepository;
+use CodeProject\Repositories\ProjectTaskRepository;
 use CodeProject\Services\ProjectService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -20,14 +21,21 @@ class ProjectController extends Controller
     private $repository;
 
     /**
+     * @var ProjectTaskRepository
+     */
+    private $taskRepository;
+
+    /**
      * @var ProjectService
      */
     private $service;
 
-    public function __construct(ProjectRepository $repository, ProjectService $service)
+
+    public function __construct(ProjectRepository $repository, ProjectService $service, ProjectTaskRepository $taskRepository)
     {
         $this->repository = $repository;
         $this->service = $service;
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -58,7 +66,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         try{
-            return $this->repository->create($request->all());
+            return $this->service->create($request->all());
         }
         catch(NoActiveAccessTokenException $e){
             return $this->erroMsgm('Usuário não está logado.');
@@ -117,7 +125,7 @@ class ProjectController extends Controller
             if(!$this->checkProjectOwner($id)){
                 return $this->erroMsgm("O usuário não tem acesso a esse projeto");
             }
-            return $this->repository->update($request->all(), $id);
+            return $this->service->update($request->all(), $id);
         }
         catch(ModelNotFoundException $e){
             return $this->erroMsgm('Projeto não encontrado.');
@@ -167,6 +175,121 @@ class ProjectController extends Controller
         }
     }
 
+
+    public function members($id)
+    {
+        try {
+
+            if(!$this->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
+
+            $members = $this->repository->find($id)->members()->get();
+
+            if (count($members)) {
+                return $members;
+            }
+            return $this->erroMsgm('Esse projeto ainda não tem membros.');
+
+        } catch (ModelNotFoundException $e) {
+            return $this->erroMsgm('Projeto não encontrado.');
+        } catch (QueryException $e) {
+            return $this->erroMsgm('Cliente não encontrado.');
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao exibir os membros do projeto.');
+        }
+
+    }
+
+    public function addMember($project_id, $member_id)
+    {
+        try {
+            if(!$this->checkProjectOwner($project_id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
+            return $this->service->addMember($project_id, $member_id);
+        } catch (ModelNotFoundException $e) {
+            return $this->erroMsgm('Projeto não encontrado.');
+        } catch (QueryException $e) {
+            return $this->erroMsgm('Cliente não encontrado.');
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao inserir o membro.');
+        }
+    }
+
+    public function removeMember($project_id, $member_id)
+    {
+        try {
+            if(!$this->checkProjectOwner($project_id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
+            return $this->service->removeMember($project_id, $member_id);
+        } catch (ModelNotFoundException $e) {
+            return $this->erroMsgm('Projeto não encontrado.');
+        } catch (QueryException $e) {
+            return $this->erroMsgm('Cliente não encontrado.');
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao remover o membro.');
+        }
+    }
+
+    public function tasks($id)
+    {
+        try {
+
+            if(!$this->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
+            $tasks = $this->taskRepository->find(['project_id' => $id]);
+
+            if (count($tasks)) {
+                return $tasks;
+            }
+            return $this->erroMsgm('Esse projeto ainda não tem tarefas.');
+
+        } catch (ModelNotFoundException $e) {
+            return $this->erroMsgm('Projeto não encontrado.');
+        } catch (QueryException $e) {
+            return $this->erroMsgm('Tarefa não encontrada.');
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao exibir as tarefas do projeto.');
+        }
+    }
+
+    public function addTask(Request $request)
+    {
+        try {
+            return $this->taskRepository->create($request->all());
+        } catch (ValidatorException $e) {
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao cadastrar a tarefa, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao cadastrar a tarefa.');
+        }
+    }
+
+    public function removeTask($project_id, $task_id)
+    {
+        try {
+
+            if(!$this->checkProjectOwner($project_id)){
+                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            }
+            $this->taskRepository->find($task_id)->delete();
+            return ['success'=>true, 'message'=>'Tarefa deletada com sucesso!'];
+        } catch (QueryException $e) {
+            return $this->erroMsgm('Tarefa não pode ser apagado pois existe um projeto vinculado a ela.');
+        } catch (ModelNotFoundException $e) {
+            return $this->erroMsgm('Tarefa não encontrada.');
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao excluir a tarefa.');
+        }
+    }
+
     private function checkProjectOwner($projectId)
     {
         $userId = \Authorizer::getResourceOwnerId();
@@ -189,6 +312,7 @@ class ProjectController extends Controller
 
         return false;
     }
+
 
     private function erroMsgm($mensagem)
     {

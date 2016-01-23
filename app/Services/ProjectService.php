@@ -32,9 +32,11 @@ class ProjectService
             return $this->repository->create($data);
         }
         catch(ValidatorException $e){
+            $error = $e->getMessageBag();
             return [
                 'error' => true,
-                'message' => $e->getMessageBag()
+                'message' => "Erro ao cadastrar o projeto, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
             ];
         }
     }
@@ -54,9 +56,11 @@ class ProjectService
             return $this->repository->update($data, $id);
         }
         catch(ValidatorException $e){
+            $error = $e->getMessageBag();
             return [
                 'error' => true,
-                'message' => $e->getMessageBag()
+                'message' => "Erro ao atualizar o projeto, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
             ];
         }
     }
