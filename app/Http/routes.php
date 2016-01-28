@@ -19,13 +19,13 @@ Route::group(['middleware'=>'oauth'], function(){
     //Route::group(['middleware'=>'CheckProjectOwner'], function(){
         Route::resource('project', 'ProjectController', ['except'=>['create','edit']]);
 
-        Route::get('project/{id}/members', 'ProjectController@members');
-        Route::get('project/{id}/members/{member_id}/add', 'ProjectController@addMember');
-        Route::delete('project/{id}/members/{member_id}/remove', 'ProjectController@removeMember');
+        Route::get('project/{id}/member', 'ProjectController@members');
+        Route::post('project/{id}/member/{member_id}', 'ProjectController@addMember');
+        Route::delete('project/{id}/member/{member_id}', 'ProjectController@removeMember');
 
-        Route::get('project/{id}/tasks', 'ProjectController@tasks');
-        Route::post('project/{id}/tasks/add', 'ProjectController@addTask');
-        Route::delete('project/{id}/tasks/{task_id}/remove', 'ProjectController@removeTask');
+        Route::get('project/{id}/task', 'ProjectController@tasks');
+        Route::post('project/{id}/task', 'ProjectController@addTask');
+        Route::delete('project/{id}/task/{task_id}', 'ProjectController@removeTask');
    // });
 
     Route::group(['prefix'=>'project'], function(){
