@@ -60,7 +60,7 @@ class ProjectFileController extends Controller
     {
         $file = $request->file('file');
         if(!$file){
-            return $this->erroMsgm("Arquivo não inserido!");
+            return $this->erroMsgm("O arquivo é obrigatório!");
         }
 
         $extension = $file->getClientOriginalExtension();
@@ -71,9 +71,7 @@ class ProjectFileController extends Controller
         $data['description'] = $request->description;
         $data['project_id'] = $id;
 
-        $this->service->createFile($data);
-
-        return ['error'=>false, 'message'=>'Arquivo inserido com sucesso!'];
+        return $this->service->createFile($data);
     }
 
     /**

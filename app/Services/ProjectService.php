@@ -46,12 +46,14 @@ class ProjectService
 
     public function createFile(array $data)
     {
+
         try{
             $this->fileValidator->with($data)->passesOrFail();
             $project = $this->repository->skipPresenter()->find($data['project_id']);
             $projectFile = $project->files()->create($data);
-
             $this->storage->put($projectFile->id.".".$data['extension'], $this->fileSystem->get($data['file']));
+
+            return ['error'=>false, 'message'=>'Arquivo inserido com sucesso!'];
         }
         catch(ValidatorException $e){
             $error = $e->getMessageBag();
