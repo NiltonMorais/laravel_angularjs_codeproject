@@ -4,6 +4,7 @@ namespace CodeProject\Services;
 
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectValidator;
+use CodeProject\Validators\ProjectFileValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 
@@ -14,13 +15,15 @@ class ProjectService
 {
     protected $repository;
     protected $validator;
+    protected $fileValidator;
     protected $storage;
     protected $fileSystem;
 
-    public function __construct(ProjectRepository $repository, ProjectValidator $validator,  Storage $storage, Filesystem $filesystem)
+    public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectFileValidator $fileValidator,  Storage $storage, Filesystem $filesystem)
     {
         $this->repository = $repository;
         $this->validator = $validator;
+        $this->fileValidator = $fileValidator;
         $this->storage = $storage;
         $this->fileSystem = $filesystem;
     }
@@ -43,10 +46,21 @@ class ProjectService
 
     public function createFile(array $data)
     {
-        $project = $this->repository->skipPresenter()->find($data['project_id']);
-        $projectFile = $project->files()->create($data);
+        try{
+            $this->fileValidator->with($data)->passesOrFail();
+            $project = $this->repository->skipPresenter()->find($data['project_id']);
+            $projectFile = $project->files()->create($data);
 
-        $this->storage->put($projectFile->id.".".$data['extension'], $this->fileSystem->get($data['file']));
+            $this->storage->put($projectFile->id.".".$data['extension'], $this->fileSystem->get($data['file']));
+        }
+        catch(ValidatorException $e){
+            $error = $e->getMessageBag();
+            return [
+                'error' => true,
+                'message' => "Erro ao enviar o arquivo, alguns campos são obrigatórios!",
+                'messages' => $error->getMessages(),
+            ];
+        }
     }
 
     public function update(array $data, $id)

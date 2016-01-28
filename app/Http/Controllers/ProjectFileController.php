@@ -56,18 +56,24 @@ class ProjectFileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $file = $request->file('file');
+        if(!$file){
+            return $this->erroMsgm("Arquivo não inserido!");
+        }
+
         $extension = $file->getClientOriginalExtension();
 
         $data['file'] = $file;
         $data['extension'] = $extension;
         $data['name'] = $request->name;
         $data['description'] = $request->description;
-        $data['project_id'] = $request->project_id;
+        $data['project_id'] = $id;
 
         $this->service->createFile($data);
+
+        return ['error'=>false, 'message'=>'Arquivo inserido com sucesso!'];
     }
 
     /**
