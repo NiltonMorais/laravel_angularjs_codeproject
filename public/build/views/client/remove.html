@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Excluir cliente</div>
+                <div class="panel-body">
+                        <p>Deseja realmente excluir esse cliente?</p>
+                        <ul>
+                            <li><strong>Name:</strong> {{client.name}}</li>
+                            <li><strong>E-mail:</strong> {{client.email}}</li>
+                            <li><strong>Phone:</strong> {{client.phone}}</li>
+                        </ul>
+
+                        <button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

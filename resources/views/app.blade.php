@@ -7,8 +7,10 @@
 	<title>Laravel</title>
 
 	@if(Config::get('app.debug'))
-		<link href="{{ asset('build/css/vendor/bootstrap.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('build/css/vendor/bootstrap-theme.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('build/css/app.css') }}" rel="stylesheet">
+		<link href="{{ asset('build/css/components.css') }}" rel="stylesheet">
+		<link href="{{ asset('build/css/flaticon.css') }}" rel="stylesheet">
+		<link href="{{ asset('build/css/font-awesome.css') }}" rel="stylesheet">
 	@else
 		<link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 	@endif
@@ -39,6 +41,8 @@
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
+					<li><a href="{{ url('/#/clients') }}">Clients</a></li>
+					<li><a href="{{ url('/#/project/1/notes') }}">ProjectNote</a></li>
 
 					@if(Auth::user())
 						@if(Auth::user()->role == 'admin')
@@ -100,8 +104,15 @@
 		<script src="{{ asset('build/js/controllers/client/clientEdit.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientRemove.js') }}"></script>
 
+		<script src="{{ asset('build/js/controllers/project-note/projectNoteList.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project-note/projectNoteShow.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project-note/projectNoteNew.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project-note/projectNoteEdit.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project-note/projectNoteRemove.js') }}"></script>
+
 		<!-- SERVICES -->
 		<script src="{{ asset('build/js/services/client.js') }}"></script>
+		<script src="{{ asset('build/js/services/projectNote.js') }}"></script>
 
 	@else
 		<script src="{{ elixir('js/all.js') }}"></script>
