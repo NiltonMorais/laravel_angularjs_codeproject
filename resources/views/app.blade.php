@@ -41,7 +41,8 @@
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
-					<li><a href="{{ url('/#/clients') }}">Clients</a></li>
+					<li><a href="{{ url('/#/clients') }}">Clientes</a></li>
+					<li><a href="{{ url('/#/projects') }}">Projetos</a></li>
 					<li><a href="{{ url('/#/project/1/notes') }}">ProjectNote</a></li>
 
 					@if(Auth::user())
@@ -59,8 +60,8 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					@if(auth()->guest())
-						@if(!Request::is('auth/login'))
-							<li><a href="{{ url('/auth/login') }}">Login</a></li>
+						@if(!Request::is('/#/login'))
+							<li><a href="{{ url('/#/login') }}">Login</a></li>
 						@endif
 						@if(!Request::is('auth/register'))
 							<li><a href="{{ url('/auth/register') }}">Register</a></li>
@@ -104,14 +105,24 @@
 		<script src="{{ asset('build/js/controllers/client/clientEdit.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientRemove.js') }}"></script>
 
+		<script src="{{ asset('build/js/controllers/project/projectList.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project/projectNew.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project/projectEdit.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project/projectRemove.js') }}"></script>
+
 		<script src="{{ asset('build/js/controllers/project-note/projectNoteList.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project-note/projectNoteShow.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project-note/projectNoteNew.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project-note/projectNoteEdit.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project-note/projectNoteRemove.js') }}"></script>
 
+
+		<!-- FILTERS -->
+		<script src="{{ asset('build/js/filters/date-br.js') }}"></script>
+
 		<!-- SERVICES -->
 		<script src="{{ asset('build/js/services/client.js') }}"></script>
+		<script src="{{ asset('build/js/services/project.js') }}"></script>
 		<script src="{{ asset('build/js/services/projectNote.js') }}"></script>
 		<script src="{{ asset('build/js/services/user.js') }}"></script>
 

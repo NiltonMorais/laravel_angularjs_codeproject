@@ -53,7 +53,7 @@ class ProjectController extends Controller
                 return $this->erroMsgm('Usuário não está logado.');
             }
             catch(\Exception $e){
-                return $this->erroMsgm('Ocorreu um erro ao listar os projetos.');
+                return $this->erroMsgm('Ocorreu um erro ao listar os projetos. Erro: '.$e->getMessage());
             }
         }
 
@@ -159,7 +159,7 @@ class ProjectController extends Controller
             if(!$this->checkProjectOwner($id)){
                 return $this->erroMsgm("O usuário não tem acesso a esse projeto");
             }
-            $this->repository->find($id)->delete();
+            $this->repository->skipPresenter()->find($id)->delete();
         }
         catch(QueryException $e){
             return $this->erroMsgm('Projeto não pode ser apagado pois existe um ou mais clientes vinculados a ele.');

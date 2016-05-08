@@ -2,6 +2,7 @@
 
 namespace CodeProject\Repositories;
 
+use CodeProject\Presenters\ProjectNotePresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeProject\Repositories\ProjectNoteRepository;
@@ -29,5 +30,11 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+
+    public function presenter()
+    {
+        return ProjectNotePresenter::class;
     }
 }

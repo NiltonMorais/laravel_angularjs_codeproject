@@ -39,7 +39,7 @@ $factory->define(CodeProject\Entities\Project::class, function (Faker\Generator 
         'description' => $faker->sentence,
         'progress' => rand(1, 100),
         'status' => rand(1, 3),
-        'due_date' => $faker->dateTime('now')
+        'due_date' => $faker->date('now')
     ];
 });
 

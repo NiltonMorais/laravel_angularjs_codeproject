@@ -85,6 +85,9 @@ class ProjectNoteController extends Controller
      */
     public function destroy($id, $noteId)
     {
-        $this->repository->find($noteId)->delete();
+        if($this->repository->skipPresenter()->find($noteId)->delete()){
+            return ['success'=>true, 'message'=>'Nota '.$noteId.' excluída com sucesso!'];
+        }
+        return ['error'=>true, 'message'=>'Não foi possível excluir a nota '.$noteId];
     }
 }
