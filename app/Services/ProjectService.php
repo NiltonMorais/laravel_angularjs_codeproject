@@ -3,13 +3,12 @@
 namespace CodeProject\Services;
 
 use CodeProject\Repositories\ProjectRepository;
-use CodeProject\Validators\ProjectValidator;
 use CodeProject\Validators\ProjectFileValidator;
-use Prettus\Validator\Exceptions\ValidatorException;
-
-
+use CodeProject\Validators\ProjectValidator;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
+use Prettus\Validator\Exceptions\ValidatorException;
+
 
 class ProjectService
 {
@@ -39,27 +38,6 @@ class ProjectService
             return [
                 'error' => true,
                 'message' => "Erro ao cadastrar o projeto, alguns campos são obrigatórios!",
-                'messages' => $error->getMessages(),
-            ];
-        }
-    }
-
-    public function createFile(array $data)
-    {
-
-        try{
-            $this->fileValidator->with($data)->passesOrFail();
-            $project = $this->repository->skipPresenter()->find($data['project_id']);
-            $projectFile = $project->files()->create($data);
-            $this->storage->put($projectFile->id.".".$data['extension'], $this->fileSystem->get($data['file']));
-
-            return ['error'=>false, 'message'=>'Arquivo inserido com sucesso!'];
-        }
-        catch(ValidatorException $e){
-            $error = $e->getMessageBag();
-            return [
-                'error' => true,
-                'message' => "Erro ao enviar o arquivo, alguns campos são obrigatórios!",
                 'messages' => $error->getMessages(),
             ];
         }
@@ -104,6 +82,29 @@ class ProjectService
         $project = $this->repository->find($project_id)->members()->find(['member_id' => $member_id]);
 
         if(count($project)){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function checkProjectOwner($projectId)
+    {
+        $userId = \Authorizer::getResourceOwnerId();
+
+        return $this->repository->isOwner($projectId,$userId);
+    }
+
+    public function checkProjectMember($projectId)
+    {
+        $userId = \Authorizer::getResourceOwnerId();
+
+        return $this->repository->hasMember($projectId,$userId);
+    }
+
+    public function checkProjectPermissions($projectId)
+    {
+        if($this->checkProjectOwner($projectId) || $this->checkProjectMember($projectId)){
             return true;
         }
 

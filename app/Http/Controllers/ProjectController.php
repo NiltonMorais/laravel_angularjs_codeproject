@@ -94,7 +94,7 @@ class ProjectController extends Controller
     {
         try
         {
-            if(!$this->checkProjectPermissions($id)){
+            if(!$this->service->checkProjectPermissions($id)){
                 return $this->erroMsgm("O usuário não tem acesso a esse projeto");
             }
             return $this->repository->with(['owner','client'])->find($id);
@@ -122,8 +122,8 @@ class ProjectController extends Controller
     {
         try
         {
-            if(!$this->checkProjectOwner($id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            if(!$this->service->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não é owner desse projeto");
             }
             return $this->service->update($request->all(), $id);
         }
@@ -156,8 +156,8 @@ class ProjectController extends Controller
     {
         try
         {
-            if(!$this->checkProjectOwner($id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            if(!$this->service->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não é owner desse projeto");
             }
             $this->repository->skipPresenter()->find($id)->delete();
         }
@@ -180,8 +180,8 @@ class ProjectController extends Controller
     {
         try {
 
-            if(!$this->checkProjectOwner($id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            if(!$this->service->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não é owner desse projeto");
             }
 
             $members = $this->repository->find($id)->members()->get();
@@ -204,8 +204,8 @@ class ProjectController extends Controller
     public function addMember($project_id, $member_id)
     {
         try {
-            if(!$this->checkProjectOwner($project_id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            if(!$this->service->checkProjectOwner($project_id)){
+                return $this->erroMsgm("O usuário não é owner desse projeto");
             }
             return $this->service->addMember($project_id, $member_id);
         } catch (ModelNotFoundException $e) {
@@ -220,8 +220,8 @@ class ProjectController extends Controller
     public function removeMember($project_id, $member_id)
     {
         try {
-            if(!$this->checkProjectOwner($project_id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            if(!$this->service->checkProjectOwner($project_id)){
+                return $this->erroMsgm("O usuário não é owner desse projeto");
             }
             return $this->service->removeMember($project_id, $member_id);
         } catch (ModelNotFoundException $e) {
@@ -237,8 +237,8 @@ class ProjectController extends Controller
     {
         try {
 
-            if(!$this->checkProjectOwner($id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            if(!$this->service->checkProjectOwner($id)){
+                return $this->erroMsgm("O usuário não é owner desse projeto");
             }
             $tasks = $this->taskRepository->find(['project_id' => $id]);
 
@@ -276,8 +276,8 @@ class ProjectController extends Controller
     {
         try {
 
-            if(!$this->checkProjectOwner($project_id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+            if(!$this->service->checkProjectOwner($project_id)){
+                return $this->erroMsgm("O usuário não é owner desse projeto");
             }
             $this->taskRepository->find($task_id)->delete();
             return ['success'=>true, 'message'=>'Tarefa deletada com sucesso!'];
@@ -289,30 +289,6 @@ class ProjectController extends Controller
             return $this->erroMsgm('Ocorreu um erro ao excluir a tarefa.');
         }
     }
-
-    private function checkProjectOwner($projectId)
-    {
-        $userId = \Authorizer::getResourceOwnerId();
-
-        return $this->repository->isOwner($projectId,$userId);
-    }
-
-    private function checkProjectMember($projectId)
-    {
-        $userId = \Authorizer::getResourceOwnerId();
-
-        return $this->repository->hasMember($projectId,$userId);
-    }
-
-    private function checkProjectPermissions($projectId)
-    {
-        if($this->checkProjectOwner($projectId) || $this->checkProjectMember($projectId)){
-            return true;
-        }
-
-        return false;
-    }
-
 
     private function erroMsgm($mensagem)
     {

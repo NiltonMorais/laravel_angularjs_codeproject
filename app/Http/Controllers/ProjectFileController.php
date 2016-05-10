@@ -3,29 +3,25 @@
 namespace CodeProject\Http\Controllers;
 
 use CodeProject\Http\Requests;
-use CodeProject\Repositories\ProjectRepository;
-use CodeProject\Services\ProjectService;
+use CodeProject\Repositories\ProjectFileRepository;
+use CodeProject\Services\ProjectFileService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use LucaDegasperi\OAuth2Server\Exceptions\NoActiveAccessTokenException;
-use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class ProjectFileController extends Controller
 {
     /**
-     * @var ProjectRepository
+     * @var ProjectFileRepository
      */
     private $repository;
 
     /**
-     * @var ProjectService
+     * @var ProjectFileService
      */
     private $service;
 
-    public function __construct(ProjectRepository $repository, ProjectService $service)
+    public function __construct(ProjectFileRepository $repository, ProjectFileService $service)
     {
         $this->repository = $repository;
         $this->service = $service;
@@ -36,30 +32,21 @@ class ProjectFileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-        public function index()
-        {
-            try
-            {
-                return $this->repository->with(['owner','client'])->findWhere(['owner_id'=> \Authorizer::getResourceOwnerId()]);
-            }
-            catch(NoActiveAccessTokenException $e){
-                return $this->erroMsgm('Usuário não está logado.');
-            }
-            catch(\Exception $e){
-                return $this->erroMsgm('Ocorreu um erro ao listar os projetos.');
-            }
-        }
+    public function index($id)
+    {
+        return $this->repository->findWhere(['project_id' => $id]);
+    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
         $file = $request->file('file');
-        if(!$file){
+        if (!$file) {
             return $this->erroMsgm("O arquivo é obrigatório!");
         }
 
@@ -69,61 +56,54 @@ class ProjectFileController extends Controller
         $data['extension'] = $extension;
         $data['name'] = $request->name;
         $data['description'] = $request->description;
-        $data['project_id'] = $id;
+        $data['project_id'] = $request->project_id;
 
-        return $this->service->createFile($data);
+        return $this->service->create($data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        try
-        {
-            if(!$this->checkProjectPermissions($id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
-            }
-            return $this->repository->with(['owner','client'])->find($id);
+        if ($this->service->checkProjectPermissions($id) == false) {
+            return $this->erroMsgm("O usuário não tem acesso a esse projeto");
         }
-        catch(ModelNotFoundException $e){
-            return $this->erroMsgm('Projeto não encontrado.');
+
+        return $this->repository->find($id);
+    }
+
+    public function showFile($id)
+    {
+        if (!$this->service->checkProjectPermissions($id)) {
+            return $this->erroMsgm("O usuário não tem acesso a esse projeto");
         }
-        catch(NoActiveAccessTokenException $e){
-            return $this->erroMsgm('Usuário não está logado.');
-        }
-        catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao exibir o projeto.');
-        }
+        return response()->download($this->service->getFilePath($id));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        try
-        {
-            if(!$this->checkProjectOwner($id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
+        try {
+            if (!$this->service->checkProjectOwner($id)) {
+                return $this->erroMsgm("O usuário não é onwer desse projeto");
             }
             return $this->repository->update($request->all(), $id);
-        }
-        catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Projeto não encontrado.');
-        }
-        catch(NoActiveAccessTokenException $e){
+        } catch (NoActiveAccessTokenException $e) {
             return $this->erroMsgm('Usuário não está logado.');
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao atualizar o projeto.');
         }
     }
@@ -131,53 +111,17 @@ class ProjectFileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try
-        {
-            if(!$this->checkProjectOwner($id)){
-                return $this->erroMsgm("O usuário não tem acesso a esse projeto");
-            }
-            $this->repository->find($id)->delete();
-        }
-        catch(QueryException $e){
-            return $this->erroMsgm('Projeto não pode ser apagado pois existe um ou mais clientes vinculados a ele.');
-        }
-        catch(ModelNotFoundException $e){
-            return $this->erroMsgm('Projeto não encontrado.');
-        }
-        catch(NoActiveAccessTokenException $e){
-            return $this->erroMsgm('Usuário não está logado.');
-        }
-        catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao excluir o projeto.');
-        }
-    }
-
-    private function checkProjectOwner($projectId)
-    {
-        $userId = \Authorizer::getResourceOwnerId();
-
-        return $this->repository->isOwner($projectId,$userId);
-    }
-
-    private function checkProjectMember($projectId)
-    {
-        $userId = \Authorizer::getResourceOwnerId();
-
-        return $this->repository->hasMember($projectId,$userId);
-    }
-
-    private function checkProjectPermissions($projectId)
-    {
-        if($this->checkProjectOwner($projectId) || $this->checkProjectMember($projectId)){
-            return true;
+        if (!$this->service->checkProjectOwner($id)) {
+            return $this->erroMsgm("O usuário não é owner desse projeto");
         }
 
-        return false;
+        $this->service->delete($id);
+        return ['error'=>false,'Arquivo deletado com sucesso'];
     }
 
     private function erroMsgm($mensagem)
