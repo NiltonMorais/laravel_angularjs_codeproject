@@ -10,7 +10,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
  * Class ProjectTaskRepositoryEloquent
  * @package namespace CodeProject\Repositories;
  */
-class ProjectFileRepositoryEloquent extends BaseRepository implements ProjectTaskRepository
+class ProjectFileRepositoryEloquent extends BaseRepository implements ProjectFileRepository
 {
     /**
      * Specify Model class name

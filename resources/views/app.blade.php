@@ -40,22 +40,9 @@
 
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Home</a></li>
+					<li><a href="{{ url('/#/home') }}">Home</a></li>
 					<li><a href="{{ url('/#/clients') }}">Clientes</a></li>
 					<li><a href="{{ url('/#/projects') }}">Projetos</a></li>
-					<li><a href="{{ url('/#/project/1/notes') }}">ProjectNote</a></li>
-
-					@if(Auth::user())
-						@if(Auth::user()->role == 'admin')
-							<li><a href="{{route('admin.categories.index')}}">Categorias</a></li>
-							<li><a href="{{route('admin.products.index')}}">Produtos</a></li>
-							<li><a href="{{route('admin.clients.index')}}">Clientes</a></li>
-							<li><a href="{{route('admin.cupoms.index')}}">Cupoms</a></li>
-							<li><a href="{{route('admin.orders.index')}}">Pedidos</a></li>
-						@elseif(Auth::user()->role = "client")
-							<li><a href="{{route('customer.order.index')}}">Meus pedidos</a></li>
-						@endif
-					@endif
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -127,9 +114,11 @@
 		<script src="{{ asset('build/js/filters/date-br.js') }}"></script>
 
 		<!-- SERVICES -->
+		<script src="{{ asset('build/js/services/url.js') }}"></script>
 		<script src="{{ asset('build/js/services/client.js') }}"></script>
 		<script src="{{ asset('build/js/services/project.js') }}"></script>
 		<script src="{{ asset('build/js/services/projectNote.js') }}"></script>
+		<script src="{{ asset('build/js/services/projectFile.js') }}"></script>
 		<script src="{{ asset('build/js/services/user.js') }}"></script>
 
 	@else

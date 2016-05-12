@@ -1,22 +1,23 @@
 angular.module('app.controllers')
     .controller('ProjectFileNewController', [
-        '$scope', '$routeParams', '$location', 'Upload',
-        function ($scope, $routeParams, $location, Upload) {
-            $scope.projectFile = {
-                project_id: $routeParams.id
-            };
+        '$scope', '$routeParams', '$location', 'appConfig','Url', 'Upload',
+        function ($scope, $routeParams, $location, appConfig, Url, Upload) {
 
             $scope.save = function () {
                 if ($scope.form.$valid) {
+                    var url = appConfig.baseUrl + Url.getUrlFromUrlSymbol(appConfig.urls.projectFile, {
+                            id: $routeParams.id,
+                            idFile: '',
+                        });
                     Upload.upload({
-                        url: 'upload/url',
-                        data: {
-                            file: $scope.projectFile.file,
+                        url: url,
+                        fields: {
                             name: $scope.projectFile.name,
                             description: $scope.projectFile.description,
-                        }
-                    }).then(function (resp) {
-                        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+                            project_id: $routeParams.id
+                        },
+                        file: $scope.projectFile.file
+                    }).then(function (data, status, headers, config) {
                         $location.path('/project/' + $routeParams.id + '/files');
                     }, function (resp) {
                         console.log('Error status: ' + resp.status);

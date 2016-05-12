@@ -30,8 +30,8 @@
                         <div class="form-group" ng-class="{'has-error': !form.file.$valid && form.file.$touched}">
                             <label class="col-md-4 control-label">Arquivo</label>
                             <div class="col-md-6">
-                                <!--<input type='file' class="form-control" ngf-select ng-model="projectFile.file" name="file"/>-->
-                                <div class="btn btn-info" ngf-select ng-model="projectFile.file" name="file">Selecione o arquivo</div>
+                                <!--<input type='file' class="form-control" ngf-select ng-model="projectFile.file" name="file" required/>-->
+                                <div class="btn btn-info" ngf-select ng-model="projectFile.file" name="file" required>Selecione o arquivo</div>
                                 <div ng-messages="form.file.$error" class="help-block" ng-show="form.file.$touched">
                                     <div ng-message="required">Campo obrigatório</div>
                                 </div>
