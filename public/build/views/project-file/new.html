@@ -32,6 +32,7 @@
                             <div class="col-md-6">
                                 <!--<input type='file' class="form-control" ngf-select ng-model="projectFile.file" name="file" required/>-->
                                 <div class="btn btn-info" ngf-select ng-model="projectFile.file" name="file" required>Selecione o arquivo</div>
+                                {{projectFile.file.name}}
                                 <div ng-messages="form.file.$error" class="help-block" ng-show="form.file.$touched">
                                     <div ng-message="required">Campo obrigatório</div>
                                 </div>

@@ -2,12 +2,12 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Excluir nota de projeto</div>
+                <div class="panel-heading">Excluir arquivo</div>
                 <div class="panel-body">
-                        <p>Deseja realmente excluir essa nota?</p>
+                        <p>Deseja realmente excluir este arquivo?</p>
                         <ul>
-                            <li><strong>Título:</strong> {{projectNote.title}}</li>
-                            <li><strong>Nota:</strong> {{projectNote.note}}</li>
+                            <li><strong>Nome:</strong> {{projectFile.name}}</li>
+                            <li><strong>Descricao:</strong> {{projectFile.description}}</li>
                         </ul>
 
                         <button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>

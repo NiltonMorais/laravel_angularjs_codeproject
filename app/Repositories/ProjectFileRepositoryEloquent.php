@@ -33,6 +33,6 @@ class ProjectFileRepositoryEloquent extends BaseRepository implements ProjectFil
 
     public function validator()
     {
-        return \CodeProject\Validators\ProjectTaskValidator::class;
+        return \CodeProject\Validators\ProjectFileValidator::class;
     }
 }

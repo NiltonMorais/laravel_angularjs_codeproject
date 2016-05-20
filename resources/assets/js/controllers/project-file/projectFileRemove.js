@@ -1,14 +1,14 @@
 angular.module('app.controllers')
-    .controller('ProjectNoteRemoveController', ['$scope', '$location', '$routeParams', 'ProjectNote',
-        function($scope, $location, $routeParams, ProjectNote){
-            $scope.projectNote = ProjectNote.get({
-                id: $routeParams.id,
-                idNote: $routeParams.idNote
+    .controller('ProjectFileRemoveController', ['$scope', '$location', '$routeParams', 'ProjectFile',
+        function($scope, $location, $routeParams, ProjectFile){
+            $scope.projectFile = ProjectFile.get({
+                id: null,
+                idFile: $routeParams.idFile
             });
 
         $scope.remove = function(){
-            $scope.projectNote.$delete({id: $scope.projectNote.project_id, idNote: $scope.projectNote.id}).then(function(){
-                $location.path('/project/'+$routeParams.id+'/notes');
+            $scope.projectFile.$delete({id: null, idFile: $scope.projectFile.id}).then(function(){
+                $location.path('/project/'+$routeParams.id+'/files');
             });
         }
     }]);

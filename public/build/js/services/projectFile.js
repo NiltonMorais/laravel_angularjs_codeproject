@@ -3,10 +3,15 @@ angular.module('app.services')
     var url = appConfig.baseUrl + Url.getUrlResource(appConfig.urls.projectFile);
     return $resource(url, {
         id: '@id',
-        idNote: '@idFile'
+        idFile: '@idFile'
         }, {
         update: {
             method: 'PUT'
+        },
+        download: {
+            url: appConfig.baseUrl +
+            Url.getUrlResource(appConfig.urls.projectFile) + '/download',
+            method: 'GET'
         }
 
     });

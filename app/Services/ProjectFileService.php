@@ -7,6 +7,7 @@ use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectFileValidator;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
+use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 
@@ -33,10 +34,10 @@ class ProjectFileService
     public function create(array $data)
     {
         try{
-            $this->fileValidator->with($data)->passesOrFail();
+            $this->fileValidator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
             $project = $this->projectRepository->skipPresenter()->find($data['project_id']);
             $projectFile = $project->files()->create($data);
-            $this->storage->put($projectFile->id.".".$data['extension'], $this->fileSystem->get($data['file']));
+            $this->storage->put($projectFile->getFileName(), $this->fileSystem->get($data['file']));
 
             return ['error'=>false, 'message'=>'Arquivo inserido com sucesso!'];
         }
@@ -53,7 +54,7 @@ class ProjectFileService
     public function update(array $data, $id)
     {
         try{
-            $this->fileValidator->with($data)->passesOrFail();
+            $this->fileValidator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             return $this->repository->update($data, $id);
         }
         catch(ValidatorException $e){
@@ -69,8 +70,8 @@ class ProjectFileService
     public function delete($id)
     {
         $projectFile = $this->repository->skipPresenter()->find($id);
-        if($this->storage->exists($projectFile->id.'.'.$projectFile->extension)){
-            $this->storage->delete($projectFile->id.'.'.$projectFile->extension);
+        if($this->storage->exists($projectFile->getFileName())){
+            $this->storage->delete($projectFile->getFileName());
             return $projectFile->delete();
         }
     }
@@ -86,8 +87,14 @@ class ProjectFileService
         switch ($this->storage->getDefaultDriver()){
             case 'local':
                 return $this->storage->getDriver()->getAdapter()->getPathPrefix()
-                .'/'.$projectFile->id.'.'.$projectFile->extension;
+                .'/'.$projectFile->getFileName();
         }
+    }
+
+    public function getFileName($id)
+    {
+        $projectFile = $this->repository->skipPresenter()->find($id);
+        return $projectFile->getFileName();
     }
 
     public function checkProjectOwner($projectFileId)
@@ -114,4 +121,6 @@ class ProjectFileService
 
         return false;
     }
+
+
 }

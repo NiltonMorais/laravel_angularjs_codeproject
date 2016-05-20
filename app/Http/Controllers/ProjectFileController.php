@@ -78,10 +78,17 @@ class ProjectFileController extends Controller
 
     public function showFile($id)
     {
-        if (!$this->service->checkProjectPermissions($id)) {
+        if ($this->service->checkProjectPermissions($id) == false) {
             return $this->erroMsgm("O usuário não tem acesso a esse projeto");
         }
-        return response()->download($this->service->getFilePath($id));
+        $filePath = $this->service->getFilePath($id);
+        $fileContent = file_get_contents($filePath);
+        $file64 = base64_encode($fileContent);
+        return [
+            'file' => $file64,
+            'size' => filesize($filePath),
+            'name' => $this->service->getFileName($id)
+        ];
     }
 
 
@@ -98,7 +105,7 @@ class ProjectFileController extends Controller
             if (!$this->service->checkProjectOwner($id)) {
                 return $this->erroMsgm("O usuário não é onwer desse projeto");
             }
-            return $this->repository->update($request->all(), $id);
+            return $this->service->update($request->all(), $id);
         } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Projeto não encontrado.');
         } catch (NoActiveAccessTokenException $e) {
