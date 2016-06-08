@@ -43,7 +43,7 @@ class ProjectFileController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $file = $request->file('file');
         if (!$file) {
@@ -56,7 +56,7 @@ class ProjectFileController extends Controller
         $data['extension'] = $extension;
         $data['name'] = $request->name;
         $data['description'] = $request->description;
-        $data['project_id'] = $request->project_id;
+        $data['project_id'] = $id;
 
         return $this->service->create($data);
     }
@@ -67,20 +67,13 @@ class ProjectFileController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($projectId, $id)
     {
-        if ($this->service->checkProjectPermissions($id) == false) {
-            return $this->erroMsgm("O usuário não tem acesso a esse projeto");
-        }
-
         return $this->repository->find($id);
     }
 
-    public function showFile($id)
+    public function showFile($projectId, $id)
     {
-        if ($this->service->checkProjectPermissions($id) == false) {
-            return $this->erroMsgm("O usuário não tem acesso a esse projeto");
-        }
         $filePath = $this->service->getFilePath($id);
         $fileContent = file_get_contents($filePath);
         $file64 = base64_encode($fileContent);
@@ -99,12 +92,9 @@ class ProjectFileController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $projectId, $id)
     {
         try {
-            if (!$this->service->checkProjectOwner($id)) {
-                return $this->erroMsgm("O usuário não é onwer desse projeto");
-            }
             return $this->service->update($request->all(), $id);
         } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Projeto não encontrado.');
@@ -121,12 +111,8 @@ class ProjectFileController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($projectId, $id)
     {
-        if (!$this->service->checkProjectOwner($id)) {
-            return $this->erroMsgm("O usuário não é owner desse projeto");
-        }
-
         $this->service->delete($id);
         return ['error'=>false,'Arquivo deletado com sucesso'];
     }

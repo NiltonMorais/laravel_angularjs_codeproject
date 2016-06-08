@@ -11,12 +11,10 @@ class ProjectFileValidator extends LaravelValidator
             'file' => 'required|mimes:jpeg,jpg,png,gif,pdf,zip,doc,docx,rar',
             'name' => 'required|max:255',
             'description' => 'required|max:255',
-            'project_id' => 'required|integer',
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required|max:255',
             'description' => 'required|max:255',
-            'project_id' => 'required|integer',
         ]
 
     ];

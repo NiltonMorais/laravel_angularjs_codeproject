@@ -16,19 +16,9 @@ Route::group(['middleware'=>'oauth'], function(){
 
     Route::resource('client', 'ClientController', ['except'=>['create','edit']]);
 
-    Route::group(['middleware'=>'CheckProjectOwner'], function(){
-        Route::resource('project', 'ProjectController', ['except'=>['create','edit']]);
+    Route::resource('project', 'ProjectController', ['except'=>['create','edit']]);
 
-        Route::get('project/{id}/member', 'ProjectController@members');
-        Route::post('project/{id}/member/{member_id}', 'ProjectController@addMember');
-        Route::delete('project/{id}/member/{member_id}', 'ProjectController@removeMember');
-
-        Route::get('project/{id}/task', 'ProjectController@tasks');
-        Route::post('project/{id}/task', 'ProjectController@addTask');
-        Route::delete('project/{id}/task/{task_id}', 'ProjectController@removeTask');
-    });
-
-    Route::group(['prefix'=>'project'], function(){
+    Route::group(['prefix'=>'project','middleware'=>'check.project.permission'], function(){
         Route::get('{id}/note', 'ProjectNoteController@index');
         Route::post('{id}/note', 'ProjectNoteController@store');
         Route::get('{id}/note/{noteId}', 'ProjectNoteController@show');
@@ -37,14 +27,20 @@ Route::group(['middleware'=>'oauth'], function(){
 
 
         Route::get('{id}/file', 'ProjectFileController@index');
-        Route::get('file/{fileId}', 'ProjectFileController@show');
-        Route::get('file/{fileId}/download', 'ProjectFileController@showFile');
+        Route::get('{id}/file/{fileId}', 'ProjectFileController@show');
+        Route::get('{id}/file/{fileId}/download', 'ProjectFileController@showFile');
         Route::post('{id}/file', 'ProjectFileController@store');
-        Route::put('file/{fileId}', 'ProjectFileController@update');
-        Route::delete('file/{fileId}', 'ProjectFileController@destroy');
+        Route::put('{id}/file/{fileId}', 'ProjectFileController@update');
+        Route::delete('{id}/file/{fileId}', 'ProjectFileController@destroy');
 
 
-        Route::post('{id}/file', 'ProjectFileController@store');
+        Route::get('{id}/member', 'ProjectController@members');
+        Route::post('{id}/member/{member_id}', 'ProjectController@addMember');
+        Route::delete('{id}/member/{member_id}', 'ProjectController@removeMember');
+
+        Route::get('{id}/task', 'ProjectController@tasks');
+        Route::post('{id}/task', 'ProjectController@addTask');
+        Route::delete('{id}/task/{task_id}', 'ProjectController@removeTask');
     });
 
     Route::get('user/authenticated', 'UserController@authenticated');
