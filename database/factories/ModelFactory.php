@@ -58,6 +58,6 @@ $factory->define(CodeProject\Entities\ProjectTask::class, function (Faker\Genera
         'name' => $faker->name,
         'start_date' => $faker->dateTime('now'),
         'due_date' => $faker->dateTime(),
-        'status' => rand(1, 3),
+        'status' => rand(1, 2),
     ];
 });

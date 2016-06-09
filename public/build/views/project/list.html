@@ -23,10 +23,11 @@
                                 <td>{{o.status}}</td>
                                 <td>{{o.due_date | dateBr}}</td>
                                 <td>
+                                    <a ng-href="#/project/{{o.id}}/tasks">Tarefas</a>
                                     <a ng-href="#/project/{{o.id}}/notes">Notas</a>
                                     <a ng-href="#/project/{{o.id}}/files">Arquivos</a>
-                                    <a ng-href="#/projects/{{o.id}}/edit">Editar</a>
-                                    <a ng-href="#/projects/{{o.id}}/remove">Excluir</a>
+                                    <a ng-href="#/project/{{o.id}}/edit">Editar</a>
+                                    <a ng-href="#/project/{{o.id}}/remove">Excluir</a>
                                 </td>
                             </tr>
                         </tbody>

@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Excluir tarefa de projeto</div>
+                <div class="panel-body">
+                        <p>Deseja realmente excluir essa tarefa?</p>
+                        <ul>
+                            <li><strong>Nome:</strong> {{projectTask.name}}</li>
+                            <li><strong>Data inicial:</strong> {{projectTask.start_date | dateBr}}</li>
+                            <li><strong>Data final:</strong> {{projectTask.due_date | dateBr}}</li>
+                            <li><strong>Status:</strong> {{projectTask.status}}</li>
+                        </ul>
+
+                        <button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
