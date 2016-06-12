@@ -12,7 +12,7 @@
                                 <th>Progresso</th>
                                 <th>Status</th>
                                 <th>Data de Vencimento</th>
-                                <th>Action</th>
+                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,6 +23,7 @@
                                 <td>{{o.status}}</td>
                                 <td>{{o.due_date | dateBr}}</td>
                                 <td>
+                                    <a ng-href="#/project/{{o.id}}/members">Membros</a>
                                     <a ng-href="#/project/{{o.id}}/tasks">Tarefas</a>
                                     <a ng-href="#/project/{{o.id}}/notes">Notas</a>
                                     <a ng-href="#/project/{{o.id}}/files">Arquivos</a>

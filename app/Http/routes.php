@@ -18,6 +18,8 @@ Route::group(['middleware'=>'oauth'], function(){
 
     Route::resource('project', 'ProjectController', ['except'=>['create','edit']]);
 
+    Route::resource('project.member', 'ProjectMemberController', ['except'=>['create','edit', 'update']]);
+
     Route::group(['prefix'=>'project','middleware'=>'check.project.permission'], function(){
         Route::get('{id}/note', 'ProjectNoteController@index');
         Route::post('{id}/note', 'ProjectNoteController@store');
@@ -46,6 +48,8 @@ Route::group(['middleware'=>'oauth'], function(){
     });
 
     Route::get('user/authenticated', 'UserController@authenticated');
+
+    Route::resource('user', 'UserController', ['except'=>['create','edit']]);
 });
 
 

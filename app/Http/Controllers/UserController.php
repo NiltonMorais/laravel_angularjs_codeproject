@@ -3,6 +3,7 @@
 namespace CodeProject\Http\Controllers;
 
 use CodeProject\Entities\User;
+use CodeProject\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 use CodeProject\Http\Requests;
@@ -12,19 +13,19 @@ use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 class UserController extends Controller
 {
     /**
-     * @var User
+     * @var UserRepository
      */
-    private $user;
+    private $repository;
 
-    public function __construct(User $user)
+    public function __construct(UserRepository $repository)
     {
-        $this->user = $user;
+        $this->repository = $repository;
     }
 
     public function authenticated()
     {
         $idUser = Authorizer::getResourceOwnerId();
-        return $this->user->find($idUser);
+        return $this->repository->find($idUser);
     }
     /**
      * Display a listing of the resource.
@@ -33,17 +34,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->repository->all();
     }
 
     /**
@@ -64,17 +55,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

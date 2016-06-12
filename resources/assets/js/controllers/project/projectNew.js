@@ -21,7 +21,7 @@ angular.module('app.controllers')
                     $location.path('/projects');
                 })
             }
-        }
+        };
 
             $scope.formatName = function(model){
                 if(model){
