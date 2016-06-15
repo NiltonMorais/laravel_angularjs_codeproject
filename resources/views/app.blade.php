@@ -82,11 +82,13 @@
 		<script src="{{ asset('build/js/vendor/query-string.js') }}"></script>
 		<script src="{{ asset('build/js/vendor/angular-oauth2.min.js') }}"></script>
 		<script src="{{ asset('build/js/vendor/ng-file-upload.js') }}"></script>
+		<script src="{{ asset('build/js/vendor/http-auth-interceptor.js') }}"></script>
 
 		<script src="{{ asset('build/js/app.js') }}"></script>
 
 		<!-- CONTROLLERS -->
 		<script src="{{ asset('build/js/controllers/login.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/loginModal.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/home.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientList.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientNew.js') }}"></script>
@@ -120,12 +122,14 @@
 
 		<!-- DIRECTIVES -->
 		<script src="{{ asset('build/js/directives/projectFileDownload.js') }}"></script>
+		<script src="{{ asset('build/js/directives/loginForm.js') }}"></script>
 
 		<!-- FILTERS -->
 		<script src="{{ asset('build/js/filters/date-br.js') }}"></script>
 
 		<!-- SERVICES -->
 		<script src="{{ asset('build/js/services/url.js') }}"></script>
+		<script src="{{ asset('build/js/services/oauthFixInterceptor.js') }}"></script>
 		<script src="{{ asset('build/js/services/user.js') }}"></script>
 		<script src="{{ asset('build/js/services/client.js') }}"></script>
 		<script src="{{ asset('build/js/services/project.js') }}"></script>
