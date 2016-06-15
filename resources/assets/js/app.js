@@ -191,7 +191,14 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider',
     })
 }]);
 
-app.run(['$rootScope', '$window', 'OAuth', function($rootScope, $window, OAuth) {
+app.run(['$rootScope', '$location', '$window', 'OAuth', function($rootScope, $location, $window, OAuth) {
+    $rootScope.$on('$routeChangeStart', function(event,next,current){
+        if(next.$$route.originalPath != '/login'){
+            if(!OAuth.isAuthenticated()){
+                $location.path('login');
+            }
+        }
+    });
     $rootScope.$on('oauth:error', function(event, rejection) {
         // Ignore `invalid_grant` error - should be catched on `LoginController`.
         if ('invalid_grant' === rejection.data.error) {
