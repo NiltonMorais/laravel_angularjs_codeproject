@@ -28,6 +28,9 @@ angular.module('app.services')
                 return o;
             }
         },
+        query: {
+            isArray: false
+        },
         update: {
             method: 'PUT',
             transformRequest: transformData

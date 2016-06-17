@@ -83,6 +83,7 @@
 		<script src="{{ asset('build/js/vendor/angular-oauth2.min.js') }}"></script>
 		<script src="{{ asset('build/js/vendor/ng-file-upload.js') }}"></script>
 		<script src="{{ asset('build/js/vendor/http-auth-interceptor.js') }}"></script>
+		<script src="{{ asset('build/js/vendor/dirPagination.js') }}"></script>
 
 		<script src="{{ asset('build/js/app.js') }}"></script>
 
