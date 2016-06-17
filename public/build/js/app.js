@@ -1,8 +1,7 @@
 var app = angular.module('app', [
     'ngRoute', 'angular-oauth2', 'app.controllers', 'app.services', 'app.filters', 'app.directives',
     'ui.bootstrap.typeahead', 'ui.bootstrap.tpls', 'ui.bootstrap.datepicker', 'ui.bootstrap.modal',
-    'ngFileUpload', 'http-auth-interceptor', 'angularUtils.directives.dirPagination',
-    'mgcrea.ngStrap.navbar', 'ui.bootstrap.dropdown'
+    'ngFileUpload', 'http-auth-interceptor', 'angularUtils.directives.dirPagination','ui.bootstrap.dropdown'
 ]);
 
 angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
@@ -59,8 +58,7 @@ app.provider('appConfig', ['$httpParamSerializerProvider', function ($httpParamS
     }
 }]);
 
-app.config(['$routeProvider', '$httpProvider', 'OAuthProvider',
-    'OAuthTokenProvider', 'appConfigProvider',
+app.config(['$routeProvider', '$httpProvider', 'OAuthProvider','OAuthTokenProvider', 'appConfigProvider',
     function ($routeProvider, $httpProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -85,106 +83,130 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider',
             })
             .when('/home', {
                 templateUrl: 'build/views/home.html',
-                controller: 'HomeController'
+                controller: 'HomeController',
+                title: 'Home'
             })
             .when('/clients', {
                 templateUrl: 'build/views/client/list.html',
-                controller: 'ClientListController'
+                controller: 'ClientListController',
+                title: 'Clientes'
             })
             .when('/client/new', {
                 templateUrl: 'build/views/client/new.html',
-                controller: 'ClientNewController'
+                controller: 'ClientNewController',
+                title: 'Clientes'
             })
             .when('/client/:id/edit', {
                 templateUrl: 'build/views/client/edit.html',
-                controller: 'ClientEditController'
+                controller: 'ClientEditController',
+                title: 'Clientes'
             })
             .when('/client/:id/remove', {
                 templateUrl: 'build/views/client/remove.html',
-                controller: 'ClientRemoveController'
+                controller: 'ClientRemoveController',
+                title: 'Clientes'
             })
 
             .when('/projects', {
                 templateUrl: 'build/views/project/list.html',
-                controller: 'ProjectListController'
+                controller: 'ProjectListController',
+                title: 'Projetos'
             })
             .when('/project/new', {
                 templateUrl: 'build/views/project/new.html',
-                controller: 'ProjectNewController'
+                controller: 'ProjectNewController',
+                title: 'Projetos'
             })
             .when('/project/:id/edit', {
                 templateUrl: 'build/views/project/edit.html',
-                controller: 'ProjectEditController'
+                controller: 'ProjectEditController',
+                title: 'Projetos'
             })
             .when('/project/:id/remove', {
                 templateUrl: 'build/views/project/remove.html',
-                controller: 'ProjectRemoveController'
+                controller: 'ProjectRemoveController',
+                title: 'Projetos'
             })
 
             .when('/project/:id/notes', {
                 templateUrl: 'build/views/project-note/list.html',
-                controller: 'ProjectNoteListController'
+                controller: 'ProjectNoteListController',
+                title: 'Projetos'
             })
             .when('/project/:id/note/:idNote/show', {
                 templateUrl: 'build/views/project-note/show.html',
-                controller: 'ProjectNoteShowController'
+                controller: 'ProjectNoteShowController',
+                title: 'Projetos'
             })
             .when('/project/:id/note/new', {
                 templateUrl: 'build/views/project-note/new.html',
-                controller: 'ProjectNoteNewController'
+                controller: 'ProjectNoteNewController',
+                title: 'Projetos'
             })
             .when('/project/:id/note/:idNote/edit', {
                 templateUrl: 'build/views/project-note/edit.html',
-                controller: 'ProjectNoteEditController'
+                controller: 'ProjectNoteEditController',
+                title: 'Projetos'
             })
             .when('/project/:id/note/:idNote/remove', {
                 templateUrl: 'build/views/project-note/remove.html',
-                controller: 'ProjectNoteRemoveController'
+                controller: 'ProjectNoteRemoveController',
+                title: 'Projetos'
             })
 
 
             .when('/project/:id/files', {
                 templateUrl: 'build/views/project-file/list.html',
-                controller: 'ProjectFileListController'
+                controller: 'ProjectFileListController',
+                title: 'Projetos'
             })
             .when('/project/:id/file/new', {
                 templateUrl: 'build/views/project-file/new.html',
-                controller: 'ProjectFileNewController'
+                controller: 'ProjectFileNewController',
+                title: 'Projetos'
             })
             .when('/project/:id/file/:idFile/edit', {
                 templateUrl: 'build/views/project-file/edit.html',
-                controller: 'ProjectFileEditController'
+                controller: 'ProjectFileEditController',
+                title: 'Projetos'
             })
             .when('/project/:id/file/:idFile/remove', {
                 templateUrl: 'build/views/project-file/remove.html',
-                controller: 'ProjectFileRemoveController'
+                controller: 'ProjectFileRemoveController',
+                title: 'Projetos'
             })
 
 
             .when('/project/:id/tasks', {
                 templateUrl: 'build/views/project-task/list.html',
-                controller: 'ProjectTaskListController'
+                controller: 'ProjectTaskListController',
+                title: 'Projetos'
             })
             .when('/project/:id/task/new', {
                 templateUrl: 'build/views/project-task/new.html',
-                controller: 'ProjectTaskNewController'
+                controller: 'ProjectTaskNewController',
+                title: 'Projetos'
             })
             .when('/project/:id/task/:idTask/edit', {
                 templateUrl: 'build/views/project-task/edit.html',
-                controller: 'ProjectTaskEditController'
+                controller: 'ProjectTaskEditController',
+                title: 'Projetos'
             })
             .when('/project/:id/task/:idTask/remove', {
                 templateUrl: 'build/views/project-task/remove.html',
-                controller: 'ProjectTaskRemoveController'
+                controller: 'ProjectTaskRemoveController',
+                title: 'Projetos'
             })
 
             .when('/project/:id/members', {
                 templateUrl: 'build/views/project-member/list.html',
-                controller: 'ProjectMemberListController'
+                controller: 'ProjectMemberListController',
+                title: 'Projetos'
             })
             .when('/project/:id/member/:idProjectMember/remove', {
                 templateUrl: 'build/views/project-member/remove.html',
-                controller: 'ProjectMemberRemoveController'
+                controller: 'ProjectMemberRemoveController',
+                title: 'Projetos'
             });
 
 
@@ -205,6 +227,7 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider',
 
 app.run(['$rootScope', '$location', '$http', '$modal','httpBuffer', 'OAuth',
     function ($rootScope, $location, $http, $modal, httpBuffer, OAuth) {
+
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
         if (next.$$route.originalPath != '/login') {
             if (!OAuth.isAuthenticated()) {
@@ -212,6 +235,11 @@ app.run(['$rootScope', '$location', '$http', '$modal','httpBuffer', 'OAuth',
             }
         }
     });
+
+    $rootScope.$on('$routeChangeSuccess', function(event, current, previous){
+        $rootScope.pageTitle = current.$$route.title;
+    });
+
     $rootScope.$on('oauth:error', function (event, data) {
         // Ignore `invalid_grant` error - should be catched on `LoginController`.
         if ('invalid_grant' === data.rejection.data.error) {

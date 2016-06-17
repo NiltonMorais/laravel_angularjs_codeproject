@@ -89,6 +89,7 @@
 		<script src="{{ asset('build/js/directives/projectFileDownload.js') }}"></script>
 		<script src="{{ asset('build/js/directives/loginForm.js') }}"></script>
 		<script src="{{ asset('build/js/directives/loadTemplate.js') }}"></script>
+		<script src="{{ asset('build/js/directives/menu-activated.js') }}"></script>
 
 		<!-- FILTERS -->
 		<script src="{{ asset('build/js/filters/date-br.js') }}"></script>
