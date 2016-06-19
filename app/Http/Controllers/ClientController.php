@@ -35,10 +35,11 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try{
-            return $this->repository->all();
+            $limit = $request->query->get('limit', 15);
+            return $this->repository->paginate($limit);
         }catch(\Exception $e){
             return $this->erroMsgm('Ocorreu um erro ao listar os clientes.');
         }

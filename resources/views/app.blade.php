@@ -7,10 +7,10 @@
 	<title>Laravel</title>
 
 	@if(Config::get('app.debug'))
-		<link href="{{ asset('build/css/app.css') }}" rel="stylesheet">
-		<link href="{{ asset('build/css/components.css') }}" rel="stylesheet">
-		<link href="{{ asset('build/css/flaticon.css') }}" rel="stylesheet">
 		<link href="{{ asset('build/css/font-awesome.css') }}" rel="stylesheet">
+		<link href="{{ asset('build/css/flaticon.css') }}" rel="stylesheet">
+		<link href="{{ asset('build/css/components.css') }}" rel="stylesheet">
+		<link href="{{ asset('build/css/app.css') }}" rel="stylesheet">
 	@else
 		<link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 	@endif
@@ -55,11 +55,14 @@
 		<script src="{{ asset('build/js/controllers/login.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/loginModal.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/home.js') }}"></script>
+
+		<script src="{{ asset('build/js/controllers/client/clientDashboard.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientList.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientNew.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientEdit.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientRemove.js') }}"></script>
 
+		<script src="{{ asset('build/js/controllers/project/projectDashboard.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project/projectList.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project/projectNew.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project/projectEdit.js') }}"></script>
@@ -87,6 +90,7 @@
 
 		<!-- DIRECTIVES -->
 		<script src="{{ asset('build/js/directives/projectFileDownload.js') }}"></script>
+		<script src="{{ asset('build/js/directives/tabProject.js') }}"></script>
 		<script src="{{ asset('build/js/directives/loginForm.js') }}"></script>
 		<script src="{{ asset('build/js/directives/loadTemplate.js') }}"></script>
 		<script src="{{ asset('build/js/directives/menu-activated.js') }}"></script>

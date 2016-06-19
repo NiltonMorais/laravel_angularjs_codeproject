@@ -1,7 +1,8 @@
 var app = angular.module('app', [
     'ngRoute', 'angular-oauth2', 'app.controllers', 'app.services', 'app.filters', 'app.directives',
     'ui.bootstrap.typeahead', 'ui.bootstrap.tpls', 'ui.bootstrap.datepicker', 'ui.bootstrap.modal',
-    'ngFileUpload', 'http-auth-interceptor', 'angularUtils.directives.dirPagination','ui.bootstrap.dropdown'
+    'ngFileUpload', 'http-auth-interceptor', 'angularUtils.directives.dirPagination',
+    'ui.bootstrap.dropdown'
 ]);
 
 angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
@@ -91,6 +92,11 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider','OAuthTokenProvid
                 controller: 'ClientListController',
                 title: 'Clientes'
             })
+            .when('/clients/dashboard', {
+                templateUrl: 'build/views/client/dashboard.html',
+                controller: 'ClientDashboardController',
+                title: 'Clientes'
+            })
             .when('/client/new', {
                 templateUrl: 'build/views/client/new.html',
                 controller: 'ClientNewController',
@@ -110,6 +116,11 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider','OAuthTokenProvid
             .when('/projects', {
                 templateUrl: 'build/views/project/list.html',
                 controller: 'ProjectListController',
+                title: 'Projetos'
+            })
+            .when('/projects/dashboard', {
+                templateUrl: 'build/views/project/dashboard.html',
+                controller: 'ProjectDashboardController',
                 title: 'Projetos'
             })
             .when('/project/new', {
