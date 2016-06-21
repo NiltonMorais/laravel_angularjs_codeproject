@@ -3,7 +3,7 @@
   "description": "front-end do codeproject",
   "main": "",
   "authors": [
-    "Nilton Morais <niltonmorais123@gmail.com>"
+    "Nilton Morais <nilton_even@hotmail.com>"
   ],
   "license": "MIT",
   "homepage": "https://github.com/NiltonMorais/laravel_angularjs_codeproject",
@@ -28,6 +28,9 @@
     "angular-oauth2": "^4.0.0",
     "ng-file-upload": "7.0.17",
     "angular-http-auth": "^1.3.0",
-    "angularUtils-pagination": "angular-utils-pagination#^0.11.1"
+    "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
+    "pusher-angular": "^0.1.9",
+    "pusher": "3.0.0",
+    "angular-ui-notification": "^0.2.0"
   }
 }
