@@ -1,6 +1,6 @@
 angular.module('app.controllers')
-    .controller('HomeController', ['$scope', 'Project', '$timeout', '$pusher',
-        function ($scope, Project, $timeout, $pusher) {
+    .controller('HomeController', ['$scope','$cookies','Project', '$timeout', '$pusher',
+        function ($scope,$cookies,Project, $timeout, $pusher) {
 
             $scope.projects = [];
             $scope.tasks = [];
