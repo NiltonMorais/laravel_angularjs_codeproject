@@ -80,7 +80,8 @@ class ProjectFileController extends Controller
         return [
             'file' => $file64,
             'size' => filesize($filePath),
-            'name' => $this->service->getFileName($id)
+            'name' => $this->service->getFileName($id),
+            'mime_type' => $this->service->getMimeType($id)
         ];
     }
 

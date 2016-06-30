@@ -97,6 +97,11 @@ class ProjectFileService
         return $projectFile->getFileName();
     }
 
+    public function getMimeType($id)
+    {
+        return $this->storage->mimeType($this->getFileName($id));
+    }
+
 
 
 }
