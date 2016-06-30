@@ -2,14 +2,13 @@
 
 namespace CodeProject\Http\Controllers;
 
+use CodeProject\Http\Requests;
 use CodeProject\Repositories\ClientRepository;
 use CodeProject\Services\ClientService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
-use CodeProject\Http\Requests;
-
+use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class ClientController extends Controller
@@ -37,10 +36,10 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        try{
+        try {
             $limit = $request->query->get('limit', 15);
             return $this->repository->paginate($limit);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao listar os clientes.');
         }
     }
@@ -48,42 +47,34 @@ class ClientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        try{
-            return $this->repository->create($request->all());
-        }
-        catch(ValidatorException $e){
-            $error = $e->getMessageBag();
-            return [
+        try {
+            return $this->service->create($request->all());
+        } catch (ValidatorException $e) {
+            return Response::json([
                 'error' => true,
-                'message' => "Erro ao cadastrar o cliente, alguns campos são obrigatórios!",
-                'messages' => $error->getMessages(),
-            ];
-        }
-        catch(\Exception $e){
-            return $this->erroMsgm('Ocorreu um erro ao cadastrar o cliente.');
+                'message' => $e->getMessageBag()
+            ], 400);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        try{
+        try {
             return $this->repository->find($id);
-        }
-        catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Cliente não encontrado.');
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao exibir o cliente.');
         }
     }
@@ -92,27 +83,22 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        try{
+        try {
             return $this->repository->update($request->all(), $id);
-        }
-        catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Cliente não encontrado.');
-        }
-        catch(ValidatorException $e){
-            $error = $e->getMessageBag();
-            return [
+        } catch (ValidatorException $e) {
+            return Response::json([
                 'error' => true,
-                'message' => "Erro ao atualizar o cliente, alguns campos são obrigatórios!",
-                'messages' => $error->getMessages(),
-            ];
-        }
-        catch(\Exception $e){
+                'message' => $e->getMessageBag()
+            ], 400);
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao atualizar o cliente.');
         }
     }
@@ -120,25 +106,22 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try{
+        try {
             $this->repository->skipPresenter()->find($id)->delete();
             return [
                 'success' => true,
                 'message' => "Cliente deletado com sucesso!"
             ];
-        }
-        catch(QueryException $e){
+        } catch (QueryException $e) {
             return $this->erroMsgm('Cliente não pode ser apagado pois existe um ou mais projetos vinculados a ele.');
-        }
-        catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Cliente não encontrado.');
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao excluir o cliente.');
         }
     }
