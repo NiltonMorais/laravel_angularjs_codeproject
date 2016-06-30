@@ -293,8 +293,8 @@ app.run(['$rootScope', '$location', '$http', '$modal','$cookies','$pusher','http
             httpBuffer.append(data.rejection.config, data.deferred);
             if(!$rootScope.loginModalOpened) {
                 var modalInstance = $modal.open({
-                    templateUrl: 'build/views/templates/loginModal.html',
-                    controller: 'LoginModalController'
+                    templateUrl: 'build/views/templates/refreshModal.html',
+                    controller: 'RefreshModalController'
                 });
                 $rootScope.loginModalOpened = true;
             }
