@@ -1,11 +1,17 @@
 angular.module('app.controllers')
     .controller('ProjectEditController',
-        ['$scope', '$routeParams', '$location', '$cookies', '$q', 'Project', 'Client', 'appConfig',
-            function($scope, $routeParams, $location, $cookies, $q, Project, Client, appConfig){
+        ['$scope', '$routeParams', '$location', '$cookies', '$q', 'Project', 'Client', 'appConfig','Notification',
+            function($scope, $routeParams, $location, $cookies, $q, Project, Client, appConfig,Notification){
             Project.get({id: $routeParams.id}, function(data){
                 $scope.project = data;
                 $scope.clientSelected = data.client.data;
+            },function(error){
+                if(error.data.hasOwnProperty('error') && error.data.error){
+                    Notification.error(error.data.message);
+                    $location.path('/projects/dashboard');
+                }
             });
+
             $scope.status = appConfig.project.status;
 
             $scope.due_date = {

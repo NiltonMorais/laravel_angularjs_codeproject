@@ -1,6 +1,7 @@
 angular.module('app.controllers')
     .controller('ProjectTaskListController', [
-        '$scope', '$routeParams', 'appConfig', 'ProjectTask', function($scope, $routeParams, appConfig, ProjectTask){
+        '$scope','$routeParams','$location','Notification','appConfig', 'ProjectTask',
+        function($scope,$routeParams,$location,Notification,appConfig, ProjectTask){
             $scope.projectTask = new ProjectTask();
 
             $scope.save = function(){
@@ -18,6 +19,12 @@ angular.module('app.controllers')
                     id: $routeParams.id,
                     orderBy: 'id',
                     sortedBy: 'desc'
+                },function(){
+                },function(error){
+                    if(error.data.hasOwnProperty('error') && error.data.error){
+                        Notification.error(error.data.message);
+                        $location.path('/projects/dashboard');
+                    }
                 });
             };
 

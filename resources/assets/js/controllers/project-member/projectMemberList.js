@@ -1,7 +1,7 @@
 angular.module('app.controllers')
     .controller('ProjectMemberListController', [
-        '$scope', '$routeParams', 'ProjectMember', 'User',
-        function($scope, $routeParams, ProjectMember, User){
+        '$scope','$routeParams','$location','Notification','ProjectMember', 'User',
+        function($scope,$routeParams,$location,Notification,ProjectMember,User){
             $scope.projectMember = new ProjectMember();
 
             $scope.save = function(){
@@ -18,6 +18,12 @@ angular.module('app.controllers')
                     id: $routeParams.id,
                     orderBy: 'id',
                     sortedBy: 'desc'
+                },function(){
+                },function(error){
+                    if(error.data.hasOwnProperty('error') && error.data.error){
+                        Notification.error(error.data.message);
+                        $location.path('/projects/dashboard');
+                    }
                 });
             };
 

@@ -1,10 +1,17 @@
 angular.module('app.controllers')
     .controller('ProjectMemberRemoveController',
-        ['$scope', '$location', '$routeParams', 'ProjectMember',
-        function($scope, $location, $routeParams, ProjectMember){
+        ['$scope', '$location', '$routeParams','Notification','ProjectMember',
+        function($scope, $location,$routeParams,Notification,ProjectMember){
             $scope.projectMember = ProjectMember.get({
                 id: $routeParams.id,
                 idProjectMember: $routeParams.idProjectMember
+            },function(){
+
+            },function(error){
+                if(error.data.hasOwnProperty('error') && error.data.error){
+                    Notification.error(error.data.message);
+                    $location.path('/projects/dashboard');
+                }
             });
 
         $scope.remove = function(){

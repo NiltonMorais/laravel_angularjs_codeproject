@@ -1,11 +1,18 @@
 angular.module('app.controllers')
     .controller('ProjectTaskEditController', [
-        '$scope', '$routeParams', '$location','appConfig','ProjectTask',
-        function($scope, $routeParams, $location, appConfig, ProjectTask){
+        '$scope', '$routeParams', '$location','Notification','appConfig','ProjectTask',
+        function($scope,$routeParams,$location,Notification,appConfig,ProjectTask){
             $scope.projectTask = new ProjectTask.get({
                 id: $routeParams.id,
                 idTask: $routeParams.idTask
+            },function(){
+            },function(error){
+                if(error.data.hasOwnProperty('error') && error.data.error){
+                    Notification.error(error.data.message);
+                    $location.path('/projects/dashboard');
+                }
             });
+
             $scope.status = appConfig.projectTask.status;
 
             $scope.start_date = {
