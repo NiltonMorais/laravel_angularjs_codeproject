@@ -20,6 +20,11 @@ angular.module('app.controllers')
                 idProjectMember: $routeParams.idProjectMember
             }).then(function(){
                 $location.path('/project/'+$routeParams.id+'/members');
+            },function(error){
+                if(error.data.hasOwnProperty('error') && error.data.error){
+                    Notification.error(error.data.message);
+                    $location.path('/projects/dashboard');
+                }
             });
         }
     }]);

@@ -29,6 +29,10 @@ angular.module('app.controllers')
                     $scope.project.owner_id = $cookies.getObject('user').id;
                     Project.update({id: $scope.project.id}, $scope.project, function(){
                         $location.path('/projects');
+                    },function(error){
+                        if(error.data.hasOwnProperty('error') && error.data.error){
+                            Notification.error(error.data.message);
+                        }
                     });
                 }
             };

@@ -13,6 +13,10 @@ angular.module('app.controllers')
         $scope.remove = function(){
             $scope.project.$delete({id: $scope.project.id}).then(function(){
                 $location.path('/projects');
+            },function(error){
+                if(error.data.hasOwnProperty('error') && error.data.error){
+                    Notification.error(error.data.message);
+                }
             });
         }
     }]);

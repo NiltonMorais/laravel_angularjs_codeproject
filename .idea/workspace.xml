@@ -2,37 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203dd8d2-f3ad-4aee-a7e2-d55c5de161e3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/build/js/controllers/refreshModal.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/build/views/templates/refreshModal.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckProjectOwner.php" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckProjectOwner.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckProjectPermission.php" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckProjectPermission.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-file/projectFileEdit.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-file/projectFileEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-file/projectFileList.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-file/projectFileList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-file/projectFileRemove.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-file/projectFileRemove.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-member/projectMemberList.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-member/projectMemberList.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-member/projectMemberRemove.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-member/projectMemberRemove.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteEdit.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteList.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteRemove.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteRemove.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteShow.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-note/projectNoteShow.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-task/projectTaskEdit.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-task/projectTaskEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-task/projectTaskList.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-task/projectTaskList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project-task/projectTaskRemove.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project-task/projectTaskRemove.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project/projectEdit.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project/projectEdit.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/controllers/project/projectRemove.js" afterPath="$PROJECT_DIR$/public/build/js/controllers/project/projectRemove.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileEdit.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileList.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileRemove.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileRemove.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberList.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberList.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberRemove.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberRemove.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteEdit.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteList.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteRemove.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteRemove.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteShow.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteShow.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskEdit.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskList.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskRemove.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskRemove.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project/projectEdit.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project/projectEdit.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/controllers/project/projectRemove.js" afterPath="$PROJECT_DIR$/resources/assets/js/controllers/project/projectRemove.js" />
     </list>
@@ -62,7 +36,18 @@
     <favorites_list name="laravel_angularjs_codeproject" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/assets/js/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.271012">
+              <caret line="151" column="14" selection-start-line="151" selection-start-column="14" selection-end-line="151" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -114,14 +99,11 @@
         <option value="$PROJECT_DIR$/resources/assets/js/views/home.html" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/CheckProjectOwner.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/CheckProjectPermission.php" />
-        <option value="$PROJECT_DIR$/resources/assets/js/controllers/project/projectEdit.js" />
-        <option value="$PROJECT_DIR$/resources/assets/js/controllers/project/projectRemove.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileList.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileEdit.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileRemove.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-file/projectFileNew.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberList.js" />
-        <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberRemove.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteEdit.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteList.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteRemove.js" />
@@ -129,6 +111,9 @@
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskEdit.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskList.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskRemove.js" />
+        <option value="$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberRemove.js" />
+        <option value="$PROJECT_DIR$/resources/assets/js/controllers/project/projectEdit.js" />
+        <option value="$PROJECT_DIR$/resources/assets/js/controllers/project/projectRemove.js" />
       </list>
     </option>
   </component>
@@ -187,6 +172,116 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel_angularjs_codeproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -287,12 +382,6 @@
       <workItem from="1463595083704" duration="668000" />
       <workItem from="1463682333566" duration="28000" />
       <workItem from="1463704728141" duration="11176000" />
-    </task>
-    <task id="LOCAL-00011" summary="Comentando o middleware CheckProjectOwner das rotas">
-      <created>1452193011696</created>
-      <option name="number" value="00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1452193011696</updated>
     </task>
     <task id="LOCAL-00012" summary="retornando os dados de owner e client na listagem de projetos">
       <created>1452742754436</created>
@@ -582,7 +671,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467345335962</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Notificação quando o usuário não tiver acesso à um projeto">
+      <created>1467348321029</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1467348321029</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -590,7 +685,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37367624" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -599,7 +694,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32242227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32242227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -644,7 +739,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Crud ProjectNotes" />
     <MESSAGE value="gravando usuário authenticado no cookie" />
     <MESSAGE value="retornando usuário authenticado" />
     <MESSAGE value="crud de projetos" />
@@ -669,7 +763,8 @@
     <MESSAGE value="fazendo download de ProjectFile com blob" />
     <MESSAGE value="Autorizando automaticamente com refresh token" />
     <MESSAGE value="Status do projeto no painel home" />
-    <option name="LAST_COMMIT_MESSAGE" value="Status do projeto no painel home" />
+    <MESSAGE value="Notificação quando o usuário não tiver acesso à um projeto" />
+    <option name="LAST_COMMIT_MESSAGE" value="Notificação quando o usuário não tiver acesso à um projeto" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -953,14 +1048,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberRemove.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1457976">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project-note/projectNoteNew.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1017,22 +1104,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project/projectRemove.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26243567">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project/projectEdit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34991422">
-          <caret line="12" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project-task/projectTaskEdit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3207547">
@@ -1057,10 +1128,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project-member/projectMemberRemove.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23327616">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project/projectEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43396226">
+          <caret line="33" column="67" selection-start-line="33" selection-start-column="67" selection-end-line="33" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/controllers/project/projectRemove.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49571183">
+          <caret line="17" column="59" selection-start-line="17" selection-start-column="59" selection-end-line="17" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/assets/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6432247">
-          <caret line="258" column="7" selection-start-line="258" selection-start-column="7" selection-end-line="258" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.271012">
+          <caret line="151" column="14" selection-start-line="151" selection-start-column="14" selection-end-line="151" selection-end-column="14" />
           <folding />
         </state>
       </provider>
