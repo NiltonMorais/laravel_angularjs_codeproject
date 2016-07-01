@@ -68,6 +68,9 @@
 		<script src="{{ asset('build/js/controllers/client/clientEdit.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/client/clientRemove.js') }}"></script>
 
+		<script src="{{ asset('build/js/controllers/project/projectsMemberDashboard.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project/projectsMemberList.js') }}"></script>
+
 		<script src="{{ asset('build/js/controllers/project/projectDashboard.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project/projectList.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project/projectNew.js') }}"></script>

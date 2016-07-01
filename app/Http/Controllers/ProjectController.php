@@ -36,8 +36,8 @@ class ProjectController extends Controller
         $this->repository = $repository;
         $this->service = $service;
         $this->taskRepository = $taskRepository;
-        $this->middleware('check.project.owner',['except'=>['index','store','show']]);
-        $this->middleware('check.project.permission',['except'=>['index','store','update','destroy']]);
+        $this->middleware('check.project.owner', ['except' => ['index', 'store', 'show', 'projectsMember']]);
+        $this->middleware('check.project.permission', ['except' => ['index', 'store', 'update', 'destroy', 'projectsMember']]);
     }
 
     /**
@@ -45,44 +45,49 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-        public function index(Request $request)
-        {
-            try
-            {
-                //return $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
-                return $this->repository->findOwner(\Authorizer::getResourceOwnerId(), $request->query->get('limit'));
-            }
-            catch(NoActiveAccessTokenException $e){
-                return $this->erroMsgm('Usuário não está logado.');
-            }
-            catch(\Exception $e){
-                return $this->erroMsgm('Ocorreu um erro ao listar os projetos. Erro: '.$e->getMessage());
-            }
+    public function index(Request $request)
+    {
+        try {
+            //return $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
+            return $this->repository->findOwner(\Authorizer::getResourceOwnerId(), $request->query->get('limit'));
+        } catch (NoActiveAccessTokenException $e) {
+            return $this->erroMsgm('Usuário não está logado.');
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao listar os projetos. Erro: ' . $e->getMessage());
         }
+    }
+
+    public function projectsMember(Request $request)
+    {
+        try {
+            return $this->repository->findMember(\Authorizer::getResourceOwnerId(), $request->query->get('limit'));
+        } catch (NoActiveAccessTokenException $e) {
+            return $this->erroMsgm('Usuário não está logado.');
+        } catch (\Exception $e) {
+            return $this->erroMsgm('Ocorreu um erro ao listar os projetos. Erro: ' . $e->getMessage());
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        try{
+        try {
             return $this->service->create($request->all());
-        }
-        catch(NoActiveAccessTokenException $e){
+        } catch (NoActiveAccessTokenException $e) {
             return $this->erroMsgm('Usuário não está logado.');
-        }
-        catch(ValidatorException $e){
+        } catch (ValidatorException $e) {
             $error = $e->getMessageBag();
             return [
                 'error' => true,
                 'message' => "Erro ao cadastrar o projeto, alguns campos são obrigatórios!",
                 'messages' => $error->getMessages(),
             ];
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao cadastrar o projeto.');
         }
     }
@@ -90,22 +95,18 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        try
-        {
-            return $this->repository->with(['owner','client'])->find($id);
-        }
-        catch(ModelNotFoundException $e){
+        try {
+            return $this->repository->with(['owner', 'client'])->find($id);
+        } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Projeto não encontrado.');
-        }
-        catch(NoActiveAccessTokenException $e){
+        } catch (NoActiveAccessTokenException $e) {
             return $this->erroMsgm('Usuário não está logado.');
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao exibir o projeto.');
         }
     }
@@ -114,31 +115,26 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        try
-        {
+        try {
             return $this->service->update($request->all(), $id);
-        }
-        catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Projeto não encontrado.');
-        }
-        catch(NoActiveAccessTokenException $e){
+        } catch (NoActiveAccessTokenException $e) {
             return $this->erroMsgm('Usuário não está logado.');
-        }
-        catch(ValidatorException $e){
+        } catch (ValidatorException $e) {
             $error = $e->getMessageBag();
             return [
                 'error' => true,
                 'message' => "Erro ao atualizar o projeto, alguns campos são obrigatórios!",
                 'messages' => $error->getMessages(),
             ];
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao atualizar o projeto.');
         }
     }
@@ -146,25 +142,20 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try
-        {
+        try {
             $this->repository->skipPresenter()->find($id)->delete();
-        }
-        catch(QueryException $e){
+        } catch (QueryException $e) {
             return $this->erroMsgm('Projeto não pode ser apagado pois existe um ou mais clientes vinculados a ele.');
-        }
-        catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return $this->erroMsgm('Projeto não encontrado.');
-        }
-        catch(NoActiveAccessTokenException $e){
+        } catch (NoActiveAccessTokenException $e) {
             return $this->erroMsgm('Usuário não está logado.');
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->erroMsgm('Ocorreu um erro ao excluir o projeto.');
         }
     }

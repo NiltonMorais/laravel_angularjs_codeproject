@@ -124,6 +124,16 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider','OAuthTokenProvid
                 controller: 'ProjectDashboardController',
                 title: 'Projetos'
             })
+            .when('/projects-member', {
+                templateUrl: 'build/views/project/list.html',
+                controller: 'ProjectsMemberListController',
+                title: 'Projetos compartilhados'
+            })
+            .when('/projects-member/dashboard', {
+                templateUrl: 'build/views/project/dashboard-projects-member.html',
+                controller: 'ProjectsMemberDashboardController',
+                title: 'Projetos compartilhados'
+            })
             .when('/project/new', {
                 templateUrl: 'build/views/project/new.html',
                 controller: 'ProjectNewController',

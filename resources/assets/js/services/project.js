@@ -34,6 +34,10 @@ angular.module('app.services')
         update: {
             method: 'PUT',
             transformRequest: transformData
+        },
+        projectsMember: {
+            url: appConfig.baseUrl + '/projects-member',
+            method: 'GET'
         }
 
     });
