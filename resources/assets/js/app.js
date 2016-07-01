@@ -5,7 +5,7 @@ var app = angular.module('app', [
     'ui.bootstrap.dropdown','pusher-angular', 'ui-notification'
 ]);
 
-angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
+angular.module('app.controllers', ['ngMessages']);
 angular.module('app.filters', []);
 angular.module('app.directives', []);
 angular.module('app.services', ['ngResource']);
