@@ -1,9 +1,9 @@
 angular.module('app.controllers')
-    .controller('HomeController', ['$scope','$cookies', '$timeout', '$pusher','appConfig','Project',
-        function ($scope,$cookies,$timeout, $pusher,appConfig,Project) {
+    .controller('HomeController', ['$scope','$cookies', '$timeout', '$pusher','$filter','appConfig','Project',
+        function ($scope,$cookies,$timeout, $pusher,$filter,appConfig,Project) {
 
             $scope.projects = [];
-            $scope.tasks = [];
+            $scope.notifications = [];
             $scope.status = appConfig.project.status;
 
             $scope.getStatus = function($id) {
@@ -22,18 +22,39 @@ angular.module('app.controllers')
                 $scope.projects = response.data;
             });
 
-            /* código está bugando a listagem de projetos
             var pusher = $pusher(window.client);
             var channel = pusher.subscribe('user.' + $cookies.getObject('user').id);
             channel.bind('CodeProject\\Events\\TaskWasIncluded',
                 function (data) {
-                    if ($scope.tasks.length == 6) {
-                        $scope.tasks.splice($scope.tasks.length - 1, 1);
+                    var start_date = data.task.start_date;
+                    var msgm = "Tarefa '"+data.task.name+"' foi incluída. ";
+                    var msgm2 = "";
+
+                    if(start_date != null){
+                        msgm2 = "Data de início: "+$filter('dateBr')(start_date);
                     }
-                    $timeout(function () {
-                        $scope.tasks.unshift(data.task);
-                    }, 300);
+
+                    $scope.insertNotificationInPanel({msgm: msgm, msgm2: msgm2});
                 }
             );
-            */
+            channel.bind('CodeProject\\Events\\TaskChanged',
+                function (data) {
+                    var msgm = "Tarefa '"+data.task.name+"' foi alterada";
+
+                    if(data.task.status == 2){
+                        msgm = "Tarefa '"+data.task.name+"' foi concluída";
+                    }
+                    $scope.insertNotificationInPanel({msgm: msgm});
+                }
+            );
+
+            $scope.insertNotificationInPanel = function($msgm){
+                if ($scope.notifications.length == 6) {
+                    $scope.notifications.splice($scope.notifications.length - 1, 1);
+                }
+                $timeout(function () {
+                    $scope.notifications.unshift($msgm);
+                }, 300);
+            };
+
         }]);

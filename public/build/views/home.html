@@ -87,15 +87,15 @@
 
                 <br/>
                 <div class="mini-timeline">
-                    <div class="list-item list-item-stacked text-boulder" ng-repeat="o in tasks">
+                    <div class="list-item list-item-stacked text-boulder" ng-repeat="o in notifications">
                         <div class="clearfix">
                             <img src="build/images/avatar.png" alt="" class="avatar-sm rounded"/>
                             <p>
-                                <strong>Mudança de status em um projeto</strong>
+                                <strong>{{o.msgm}}</strong>
                                 <br/>
                                 <small>há alguns segundos</small>
                                 <br/>
-                                <span class="text-info">Uma nova tarefa foi incluída: {{o.name}}</span>
+                                <span class="text-info">{{o.msgm2}}</span>
                             </p>
                         </div>
                     </div> <!-- /list-item -->

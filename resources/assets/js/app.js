@@ -247,8 +247,8 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider','OAuthTokenProvid
         })
     }]);
 
-app.run(['$rootScope', '$location', '$http', '$modal','$cookies','$pusher','httpBuffer','OAuth','appConfig','Notification',
-    function ($rootScope,$location,$http,$modal,$cookies,$pusher,httpBuffer,OAuth,appConfig,Notification) {
+app.run(['$rootScope', '$location', '$http', '$modal','$cookies','$pusher','$filter','httpBuffer','OAuth','appConfig','Notification',
+    function ($rootScope,$location,$http,$modal,$cookies,$pusher,$filter,httpBuffer,OAuth,appConfig,Notification) {
 
     $rootScope.$on('pusher-build',function(event, data){
         if (data.next.$$route.originalPath != '/login') {
@@ -260,16 +260,36 @@ app.run(['$rootScope', '$location', '$http', '$modal','$cookies','$pusher','http
                     channel.bind('CodeProject\\Events\\TaskWasIncluded',
                         function (data) {
                             var name = data.task.name;
-                            Notification.success('Tarefa '+name+' foi incluída!');
+                            var start_date = data.task.start_date;
+                            var msgm = "Tarefa '"+name+"' foi incluída!";
+
+                            if(start_date != null){
+                                msgm += "<br> Data de início: "+$filter('dateBr')(start_date);
+                            }
+
+                            Notification.success(msgm);
                         }
                     );
+                    channel.bind('CodeProject\\Events\\TaskChanged',
+                        function (data) {
+                            var name = data.task.name;
+                            var start_date = data.task.start_date;
+                            var msgm = "Tarefa '"+name+"' foi alterada!";
+
+                            if(data.task.status == 2){
+                                msgm = "Tarefa '"+name+"' foi concluída!";
+                            }
+                            Notification.success(msgm);
+                        }
+                    );
+
                 }
             }
         }
     });
 
     $rootScope.$on('pusher-destroy',function(event, data){
-        if (data.next.$$route.originalPath != '/login') {
+        if (data.next.$$route.originalPath == '/login') {
             if (window.client) {
                 window.client.disconnect();
                 window.client = null;
